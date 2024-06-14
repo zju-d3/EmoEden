@@ -1,0 +1,1048 @@
+/* 移除链接的下划线 */
+a {
+  text-decoration: none;
+}
+
+/* 悬停在链接时，移除下划线 */
+a:hover {
+  text-decoration: none;
+}
+
+/* 已访问链接的下划线 */
+a:visited {
+  text-decoration: none;
+}
+
+/* 点击活动链接的下划线 */
+a:active {
+  text-decoration: none;
+}
+
+/* 移除输入框的边框、填充和轮廓 */
+input {
+  border: 0;
+  padding: 0;
+  outline: none;
+}
+
+/* 设置HTML元素的高度为100% */
+html {
+  height: 100%;
+}
+
+/* 选项按钮样式 */
+.option-btn {
+    border: 0;
+    background-color: transparent;
+}
+
+/* 包裹器样式 */
+.wrapper {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* 对话框样式 */
+.dialog {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 75% 25%;
+}
+
+/* 对话框右侧内容样式 */
+.dialog-content-right {
+  display: grid;
+  grid-template-rows: 60% 40%;
+}
+
+/* 对话框右侧选项容器样式 */
+.dialog-option-right-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+
+/* 对话框右侧选项按钮样式 */
+.dialog-option-right-btn {
+  width: 100%;
+  background-color: #FFA86A;
+  height: 100px;
+  border-radius: 46px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* 情绪选项1样式 */
+#emotion-option1 {
+  border-radius: 100%;
+}
+
+/* 活动状态下的图标和按钮样式 */
+#dialog-right-icon:active, #dialog-left-icon:active, #audio-control-opt1:active,
+.audio-start-container:active, #audio-control-opt2:active, .option-btn:active,
+.audio-replay-container:active, #audio-control-default:active, .dialog-option-right-btn:active {
+  filter: brightness(80%);
+}
+
+/* 奖励图像样式 */
+#reward-img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+/* 奖励容器样式 */
+#reward-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+/* 自定义字体样式 */
+@font-face {
+  font-family: 'CherryBombOne';
+  src: url('/static/ttf/CherryBombOne-Regular.ttf');
+}
+
+/* 提醒窗口背景样式 */
+.remind-window-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: #0000006e;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  display: none;
+}
+
+/* 主体样式 */
+body {
+margin: 0 auto;
+}
+
+/* 响应式布局 */
+@media (min-aspect-ratio: 118/82) {
+  /* body样式 */
+  body {
+    padding: 0px;
+    height: 100vh;
+    width: 144vh;
+    background-color: #FEF6F4;
+  }
+
+  /* 重新播放容器样式 */
+  .audio-replay-container {
+    padding: 0 1.46vh;
+    height: 100%;
+    display: flex;
+  }
+
+  /* 音频控件样式 */
+  #audio-control, #audio-replay {
+    width: 4.88vh;
+  }
+
+  /* 对话框左侧图标样式 */
+  #dialog-left-icon {
+    position: absolute;
+    top: 1.22vh;
+  }
+
+  /* 对话框右侧图标样式 */
+  #dialog-right-icon {
+    position: absolute;
+    top: 1.22vh;
+    right: 5.37vh;
+  }
+
+  /* 容器样式 */
+  .container {
+    position: relative;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 10.24vh 5.37vh 1.22vh 5.37vh;
+  }
+
+  /* 对话框顶部样式 */
+  .dialog-top {
+    border-radius: 48px;
+    background-color: #8AABE2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* 对话框内容样式 */
+  .dialog-content {
+    /* backdrop-filter:blur(105px); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 40px;
+    width: 92%;
+    height: 84%;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    position: relative;
+  }
+
+  /* 对话框左侧内容样式 */
+  .dialog-content-left {
+    margin-bottom: 7.31vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  /* 角色样式 */
+  .role {
+    display: inline-block;
+    width: 34.15vh;
+    height: 36.59vh;
+  }
+
+  /* GPT对话框样式 */
+  .gpt-dialog {
+    height: 23.17vh;
+    display: inline-block;
+    background-color: #fff;
+    border-radius: 40px;
+    margin: 4.88vh 7.31vh 1.83vh 0px;
+    font-size: 2.68vh;
+    padding: 2.44vh 2.44vh 2.44vh 2.44vh;
+    position: relative;
+    text-align: justify;
+  }
+
+  /* GPT对话框内部样式 */
+  .gpt-dialog-inner {
+    height: 100%;
+    display: inline-block;
+    overflow: auto;
+    overflow: auto;
+  }
+
+  /* 对话框内容右侧伪类样式 */
+  .dialog-content-right:before, .dialog-content-right:after{
+    content: "";
+    position: absolute;
+    bottom: -1.22vh;
+    width: 0;
+    height: 0;
+    border-left-style: solid;
+    border-style: solid;
+    border-top-width: 6.1vh;
+    border-right-width: 6.1vh;
+    border-left-width: 4.88vh;
+    border-bottom-width: 0px;
+  }
+
+  /* 对话框内容右侧伪类前样式 */
+  .dialog-content-right:before {
+    left: 1.22vh;
+    border-color: transparent transparent transparent  transparent ;
+  }
+
+  /* 对话框内容右侧伪类后样式 */
+  .dialog-content-right:after {
+    top: 24.76vh;
+    left: 39.27vh;
+    border-color: transparent #fff transparent  transparent ;
+  }
+
+  /* 子对话框样式 */
+  .child-dialog {
+    display: inline-block;
+    background-color: #B0F996;
+    margin: 1.83vh 7.31vh 1.22vh 0px;
+    border-radius: 40px;
+    font-size: 2.68vh;
+    padding: 2.44vh 2.44vh 2.44vh 3.66vh;
+    position: relative;
+  }
+
+  /* 子对话框伪类样式 */
+  .child-dialog:before, .child-dialog:after {
+    content: "";
+    position: absolute;
+    bottom: -1.22vh;
+    width: 0;
+    height: 0;
+    border-left-style: solid;
+    border-style: solid;
+    border-top-width: 6.1vh;
+    border-right-width: 6.1vh;
+    border-left-width: 4.88vh;
+    border-bottom-width: 0px;
+  }
+
+  /* 子对话框伪类前样式 */
+  .child-dialog:before {
+    left: 1.22vh;
+    border-color: transparent transparent transparent  transparent ;
+  }
+
+  /* 子对话框伪类后样式 */
+  .child-dialog:after {
+    bottom: 2.44vh;
+    right: -9.76vh;
+    border-color: transparent  transparent  transparent #B0F996 ;
+  }
+
+  /* 对话框选项样式 */
+  .dialog-option {
+    display: grid;
+    margin-top: 2.44vh;
+    grid-template-columns: 60% 40%;
+  }
+
+  /* 对话框左侧选项样式 */
+  .dialog-option-left {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 4.88vh;
+  }
+
+  /* 对话框左侧音频样式 */
+  .dialog-option-left audio {
+    width: 14.63vh;
+    display: inline-block;
+    height: 14.63vh;
+    background-color: rgb(173, 173, 173);
+  }
+
+  /* 对话框右侧选项样式 */
+  .dialog-option-right {
+    width: 100%;
+    font-size: 3.41vh;
+    font-weight: 700;
+    color: #7A7774;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  /* 对话框右侧选项按钮样式 */
+  .dialog-option-right-btn span {
+    width: 1.95vh;
+    border-radius: 20px;
+    background-color: #fff;
+  }
+
+  /* 选项容器样式 */
+  .option-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 3.41vh;
+    font-weight: 700;
+    color: #7A7774;
+    position: relative;
+  }
+
+  /* 选项背景样式 */
+  .option-bg {
+    position: absolute;
+    width: 12.2vh;
+    height: 12.2vh;
+    background-color: #FCC242;
+    z-index: -1;
+    border-radius: 100%;
+    top: -0.61vh;
+  }
+
+  /* 选项文本样式 */
+  .option-text {
+    margin-top: 1.22vh;
+  }
+
+  /* 子对话框文本输入样式 */
+  #child-dialog-text {
+    width: 100%;
+    height: 70%;
+    resize: none;
+    background-color: transparent;
+    border-radius: 10px;
+    font-size: 2.44vh;
+    outline: 0px;
+    border: 0;
+  }
+
+  /* 发送用户文字按钮样式 */
+  #send-user-word {
+    position: absolute;
+    right: 2.44vh;
+    bottom: 2.44vh;
+  }
+
+  /* 音频控制容器样式 */
+  .audio-control {
+    height: 7.8vh;
+    width: 26.22vh;
+    background-color: #3CBDA5;
+    margin-top: -9.76vh;
+    border-radius: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  /* 默认音频控制样式 */
+  #audio-control-default {
+    color: #fff;
+    font-size: 2.68vh;
+    align-items: center;
+    padding-left: 1.46vh;
+    height: 100%;
+    display: flex;
+    z-index: 12;
+  }
+
+  /* 音频控制选项样式 */
+  .audio-control-opt {
+    z-index: 10;
+    display: none;
+    position: absolute;
+    width: 10.98vh;
+    border-radius: 28px;
+    background-color: #3CBDA5;
+    top: 0;
+    right: 0;
+    font-size: 2.68vh;
+  }
+
+  /* 音频控制选项1样式 */
+  #audio-control-opt1 {
+    align-items: center;
+    margin-top: 7.8vh;
+    height: 4.88vh;
+    display: flex;
+    padding-left: 2.8vh;
+    background-color: #3CBDA5;
+  }
+
+  /* 音频控制选项2样式 */
+  #audio-control-opt2 {
+    width: 10.98vh;
+    height: 4.88vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #3CBDA5;
+    border-bottom-right-radius: 28px;
+    border-bottom-left-radius: 28px;
+  }
+
+  /* 音频启动容器样式 */
+  .audio-start-container {
+    padding-right: 1.22vh;
+    display: flex;
+    height: 100%;
+  }
+
+  /* 奖励文本样式 */
+  #reward-text {
+    position: absolute;
+    font-size: 10vh;
+    top: 5.85vh;
+    left: 63.4vh;
+    font-weight: 700;
+    font-family: 'CherryBombOne';
+    letter-spacing: 24px;
+    color: rgb(253, 247, 152);
+  }
+
+  /* 提醒窗口样式 */
+  .remind-window {
+    width: 73.17vh;
+    height: 9.66vh;
+    background-color: #fff;
+    display: grid;
+    grid-template-rows: 100%;
+    border-radius: 20px;
+    margin-top: 5.68vh;
+  }
+
+  /* 提醒内容样式 */
+  .remind-content {
+    font-size: 3.17vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* 提醒选项样式 */
+  .remind-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 2.44vh;
+    border-top: 1px solid rgb(213, 213, 213);
+  }
+
+  /* 提醒选项按钮样式 */
+  .remind-option-btn {
+    background-color: #FCC242;
+    color: white;
+    padding: 1.59vh 3.66vh;
+    border-radius: 40px;
+  }
+
+  /* 情绪选项样式 */
+  .emotion-option {
+    width: 10.24vh;
+    background-color: #fff;
+    border-radius: 100%;
+    padding: 0.24vh;
+  }
+
+  /* 弹出窗口样式 */
+  .popup-window {
+    width: 60.98vh;
+    height: 31.71vh;
+    background-color: #fff;
+    display: grid;
+    grid-template-rows: 100%;
+    border-radius: 50px;
+  }
+
+  /* 弹出文本样式 */
+  .popup-text {
+    align-self: end;
+    justify-self: center;
+    text-align: center;
+    font-weight: 700;
+    font-size: 2.63vh;
+  }
+
+  /* 弹出选项按钮样式 */
+  .popup-option-btn {
+    background-color: #FFA86A;
+    color: white;
+    padding: 1.59vh 7.8vh;
+    border-radius: 40px;
+    align-self: center;
+    justify-self: center;
+    font-size: 2.93vh;
+  }
+
+  /* 取消按钮样式 */
+  .popup-cancle-btn {
+    background-color: rgb(178,170,165);
+    color: white;
+    padding: 1.59vh 4.82vh;
+    border-radius: 40px;
+    align-self: center;
+    justify-self: center;
+    font-size: 2.93vh;
+  }
+
+  /* 子输入控制样式 */
+  .child-input-control {
+    position: absolute;
+    right: 2.44vh;
+    bottom: 1.71vh;
+    letter-spacing: 3px;
+  }
+
+  /* 完成背景样式 */
+  .complete-bg {
+    width: 14.63vh;
+    height: 14.63vh;
+    display: inline-block;
+    background-color: red;
+  }
+
+  /* 完成图像样式 */
+  #complete-img {
+    width: 85.37vh;
+  }
+}
+
+@media (max-aspect-ratio: 118/82) {
+  /* 设置页面整体样式 */
+  body {
+    padding: 0px; /* 边距为0 */
+    height: 69.49vw; /* 高度为视口宽度的69.49% */
+    width: 100vw; /* 宽度为100% */
+    background-color: #FEF6F4; /* 背景色为淡粉色 */
+  }
+  
+  /* 设置音频控制和重新播放按钮的宽度 */
+  #audio-control, #audio-replay {
+    width: 3.39vw; /* 宽度为视口宽度的3.39% */
+  }
+  
+  /* 设置重新播放容器样式 */
+  .audio-replay-container {
+    padding: 0 1.02vw; /* 上下内边距为0，左右内边距为1.02% */
+    height: 100%; /* 高度为100% */
+    display: flex; /* 使用弹性布局 */
+  }
+  
+  /* 设置情感选项样式 */
+  .emotion-option {
+    padding: 0.17vw; /* 内边距为视口宽度的0.17% */
+    width: 7.12vw; /* 宽度为视口宽度的7.12% */
+    background-color: #fff; /* 背景色为白色 */
+    border-radius: 100%; /* 边框半径为100%（圆形） */
+  }
+  
+  /* 设置对话框左侧图标位置 */
+  #dialog-left-icon {
+    position: absolute; /* 绝对定位 */
+    top: 0.85vw; /* 顶部边距为视口宽度的0.85% */
+  }
+  
+  /* 设置对话框右侧图标位置 */
+  #dialog-right-icon {
+    position: absolute; /* 绝对定位 */
+    top: 0.85vw; /* 顶部边距为视口宽度的0.85% */
+    right: 3.73vw; /* 右侧边距为视口宽度的3.73% */
+  }
+  
+  /* 设置容器样式 */
+  .container {
+    position: relative; /* 相对定位 */
+    height: 100%; /* 高度为100% */
+    box-sizing: border-box; /* 盒模型为边框盒 */
+    padding: 7.12vw 3.73vw 0.85vw 3.73vw; /* 上右下左内边距分别为7.12%、3.73%、0.85%、3.73% */
+  }
+  
+  /* 设置对话框顶部样式 */
+  .dialog-top {
+    border-radius: 48px; /* 边框半径为48像素 */
+    background-color: #8AABE2; /* 背景色为浅蓝色 */
+    display: flex; /* 使用弹性布局 */
+    justify-content: center; /* 主轴居中对齐 */
+    align-items: center; /* 交叉轴居中对齐 */
+  }
+  
+  /* 设置对话框内容样式 */
+  .dialog-content {
+    /* backdrop-filter:blur(100px); */
+    background-size: cover; /* 背景大小为覆盖 */
+    background-repeat: no-repeat; /* 背景不重复 */
+    background-position: center; /* 背景位置居中 */
+    border-radius: 40px; /* 边框半径为40像素 */
+    width: 92%; /* 宽度为92% */
+    height: 84%; /* 高度为84% */
+    display: grid; /* 使用网格布局 */
+    grid-template-columns: 40% 60%; /* 网格模板列为40%和60% */
+    position: relative; /* 相对定位 */
+  }
+  
+  /* 设置对话框左侧内容样式 */
+  .dialog-content-left {
+    margin-bottom: 5.08vw; /* 下外边距为视口宽度的5.08% */
+    display: flex; /* 使用弹性布局 */
+    flex-direction: column; /* 主轴方向为垂直 */
+    justify-content: space-around; /* 主轴空间分布为四周对齐 */
+    align-items: center; /* 交叉轴居中对齐 */
+  }
+  
+  /* 设置角色样式 */
+  .role {
+    /* margin-right: 40px; */
+    display: inline-block; /* 内联块元素 */
+    width: 23.73vw; /* 宽度为视口宽度的23.73% */
+    height: 25.42vw; /* 高度为视口宽度的25.42% */
+  }
+
+  /* 设置GPT对话框样式 */
+  .gpt-dialog {
+    height: 16.1vw; /* 高度为视口宽度的16.1% */
+    display: inline-block; /* 内联块元素 */
+    background-color: #fff; /* 背景色为白色 */
+    border-radius: 40px; /* 边框半径为40像素 */
+    margin: 3.39vw 5.08vw 1.27vw 0px; /* 外边距分别为视口宽度的3.39%、5.08%、1.27%和0 */
+    font-size: 1.86vw; /* 字体大小为视口宽度的1.86% */
+    padding: 1.69vw 1.69vw 1.69vw 1.69vw; /* 上右下左内边距分别为视口宽度的1.69% */
+    position: relative; /* 相对定位 */
+    text-align: justify; /* 文本对齐方式为两端对齐 */
+  }
+  
+  /* 设置GPT对话框内部样式 */
+  .gpt-dialog-inner {
+    height: 100%; /* 高度为100% */
+    display: inline-block; /* 内联块元素 */
+    overflow: auto; /* 溢出时自动滚动 */
+    overflow: auto; /* 溢出时自动滚动 */
+  }
+  
+  /* 设置对话框内容右侧样式 */
+  .dialog-content-right:before, .dialog-content-right:after{
+    content: ""; /* 生成内容为空 */
+    position: absolute; /* 绝对定位 */
+    bottom: -10px; /* 底部边距为-10像素 */
+    width: 0; /* 宽度为0 */
+    height: 0; /* 高度为0 */
+    border-left-style: solid; /* 左边框样式为实线 */
+    border-style: solid; /* 边框样式为实线 */
+    border-top-width: 4.24vw; /* 上边框宽度为视口宽度的4.24% */
+    border-right-width: 4.24vw; /* 右边框宽度为视口宽度的4.24% */
+    border-left-width: 3.39vw; /* 左边框宽度为视口宽度的3.39% */
+    border-bottom-width: 0px; /* 下边框宽度为0 */
+  }
+  
+  /* 设置对话框内容右侧样式 */
+  .dialog-content-right:before {
+    left: 10px; /* 左侧边距为10像素 */
+    border-color: transparent transparent transparent transparent ; /* 边框颜色透明 */
+  }
+  
+  /* 设置对话框内容右侧样式 */
+  .dialog-content-right:after {
+    top: 17.2vw; /* 顶部边距为视口宽度的17.2% */
+    left: 27.29vw; /* 左侧边距为视口宽度的27.29% */
+    border-color: transparent #fff transparent transparent ; /* 边框颜色透明 */
+  }
+  
+  /* 设置子对话框样式 */
+  .child-dialog {
+    display: inline-block; /* 内联块元素 */
+    background-color: #B0F996; /* 背景色为绿色 */
+    margin: 1.27vw 5.08vw 0.85vw 0px; /* 外边距分别为视口宽度的1.27%、5.08%、0.85%和0 */
+    border-radius: 40px; /* 边框半径为40像素 */
+    font-size: 1.86vw; /* 字体大小为视口宽度的1.86% */
+    padding: 1.69vw 1.69vw 1.69vw 2.54vw; /* 上右下左内边距分别为视口宽度的1.69% */
+    position: relative; /* 相对定位 */
+  }
+  
+  /* 设置子对话框内部样式 */
+  .child-dialog:before, .child-dialog:after {
+    content: ""; /* 生成内容为空 */
+    position: absolute; /* 绝对定位 */
+    bottom: -0.85vw; /* 底部边距为视口宽度的-0.85% */
+    width: 0; /* 宽度为0 */
+    height: 0; /* 高度为0 */
+    border-left-style: solid; /* 左边框样式为实线 */
+    border-style: solid; /* 边框样式为实线 */
+    border-top-width: 4.24vw; /* 上边框宽度为视口宽度的4.24% */
+    border-right-width: 4.24vw; /* 右边框宽度为视口宽度的4.24% */
+    border-left-width: 3.39vw; /* 左边框宽度为视口宽度的3.39% */
+    border-bottom-width: 0px; /* 下边框宽度为0 */
+  }
+  
+  /* 设置子对话框内部样式 */
+  .child-dialog:before {
+    left: 0.85vw; /* 左侧边距为视口宽度的0.85% */
+    border-color: transparent transparent transparent transparent ; /* 边框颜色透明 */
+  }
+  
+  /* 设置子对话框内部样式 */
+  .child-dialog:after {
+    bottom: 1.69vw; /* 底部边距为视口宽度的1.69% */
+    right: -6.78vw; /* 右侧边距为视口宽度的-6.78% */
+    border-color: transparent transparent transparent #B0F996 ; /* 边框颜色为绿色 */
+  }
+  
+  /* 设置对话框选项样式 */
+  .dialog-option {
+    display: grid; /* 使用网格布局 */
+    margin-top: 1.69vw; /* 上外边距为视口宽度的1.69% */
+    grid-template-columns: 60% 40%; /* 网格模板列为60%和40% */
+  }
+  
+  /* 设置对话框选项左侧样式 */
+  .dialog-option-left {
+    display: flex; /* 使用弹性布局 */
+    justify-content: space-between; /* 主轴空间分布为两端对齐 */
+    align-items: center; /* 交叉轴居中对齐 */
+    margin-right: 3.39vw; /* 右外边距为视口宽度的3.39% */
+  }
+  
+  /* 设置对话框选项左侧音频样式 */
+  .dialog-option-left audio {
+    width: 10.17vw; /* 宽度为视口宽度的10.17% */
+    display: inline-block; /* 内联块元素 */
+    height: 10.17vw; /* 高度为视口宽度的10.17% */
+    background-color: rgb(173, 173, 173); /* 背景色为灰色 */
+  }
+  
+  /* 设置对话框选项右侧样式 */
+  .dialog-option-right {
+    width: 100%; /* 宽度为100% */
+    font-size: 2.37vw; /* 字体大小为视口宽度的2.37% */
+    font-weight: 700; /* 字体粗细为700 */
+    color: #7A7774; /* 文本颜色为灰色 */
+    display: flex; /* 使用弹性布局 */
+    justify-content: flex-end; /* 主轴末尾对齐 */
+    align-items: center; /* 交叉轴居中对齐 */
+  }
+  
+  /* 设置对话框选项右侧按钮样式 */
+  .dialog-option-right-btn span {
+    width: 1.36vw; /* 宽度为视口宽度的1.36% */
+    border-radius: 20px; /* 边框半径为20像素 */
+    background-color: #fff; /* 背景色为白色 */
+  }
+  
+  /* 设置选项容器样式 */
+  .option-container {
+    display: flex; /* 使用弹性布局 */
+    flex-direction: column; /* 主轴方向为垂直 */
+    align-items: center; /* 交叉轴居中对齐 */
+    font-size: 2.37vw; /* 字体大小为视口宽度的2.37% */
+    font-weight: 700; /* 字体粗细为700 */
+    color: #7A7774; /* 文本颜色为灰色 */
+    position: relative; /* 相对定位 */
+  }
+  
+  /* 设置选项背景样式 */
+  .option-bg {
+    position: absolute; /* 绝对定位 */
+    width: 8.47vw; /* 宽度为视口宽度的8.47% */
+    height: 8.47vw; /* 高度为视口宽度的8.47% */
+    background-color: #FCC242; /* 背景色为橙黄色 */
+    z-index: -1; /* 层级为-1 */
+    border-radius: 100%; /* 边框半径为100%（圆形） */
+    top: -0.424vw; /* 顶部边距为视口宽度的-0.424% */
+  }
+  
+  /* 设置选项文本样式 */
+  .option-text {
+    margin-top: 0.85vw; /* 上外边距为视口宽度的0.85% */
+  }
+  
+  /* 设置子对话框文本输入框样式 */
+  #child-dialog-text {
+    width: 100%; /* 宽度为100% */
+    height: 70%; /* 高度为70% */
+    resize: none; /* 不允许调整大小 */
+    background-color: transparent; /* 背景色透明 */
+    border-radius: 0.85vw; /* 边框半径为视口宽度的0.85% */
+    font-size: 1.69vw; /* 字体大小为视口宽度的1.69% */
+    outline: 0px; /* 外边框样式为0像素 */
+    border: 0; /* 无边框 */
+  }
+  
+  /* 设置发送用户输入按钮位置 */
+  #send-user-word {
+    position: absolute; /* 绝对定位 */
+    right: 1.69vw; /* 右侧边距为视口宽度的1.69% */
+    bottom: 1.69vw; /* 底部边距为视口宽度的1.69% */
+  }
+  
+  /* 设置音频控制样式 */
+  .audio-control {
+    height: 5.42vw; /* 高度为视口宽度的5.42% */
+    width: 18.22vw; /* 宽度为视口宽度的18.22% */
+    background-color: #3CBDA5; /* 背景色为青色 */
+    margin-top: -6.78vw; /* 上外边距为视口宽度的-6.78% */
+    border-radius: 2.37vw; /* 边框半径为视口宽度的2.37% */
+    display: flex; /* 使用弹性布局 */
+    justify-content: center; /* 主轴居中对齐 */
+    align-items: center; /* 交叉轴居中对齐 */
+    position: relative; /* 相对定位 */
+  }
+  
+  /* 设置默认音频控制样式 */
+  #audio-control-default {
+    color: #fff; /* 文本颜色为白色 */
+    font-size: 1.86vw; /* 字体大小为视口宽度的1.86% */
+    align-items: center; /* 交叉轴居中对齐 */
+    padding-left: 1.02vw; /* 左内边距为视口宽度的1.02% */
+    height: 100%; /* 高度为100% */
+    display: flex; /* 使用弹性布局 */
+    z-index: 12; /* 层级为12 */
+  }
+  
+  /* 设置音频控制选项样式 */
+  .audio-control-opt {
+    z-index: 10; /* 层级为10 */
+    display: none; /* 不显示 */
+    position: absolute; /* 绝对定位 */
+    width: 7.63vw; /* 宽度为视口宽度的7.63% */
+    border-radius: 2.37vw; /* 边框半径为视口宽度的2.37% */
+    background-color: #3CBDA5; /* 背景色为青色 */
+    top: 0; /* 顶部边距为0 */
+    right: 0; /* 右侧边距为0 */
+    font-size: 1.86vw; /* 字体大小为视口宽度的1.86% */
+  }
+  
+  /* 设置音频控制选项1样式 */
+  #audio-control-opt1 {
+    align-items: center; /* 交叉轴居中对齐 */
+    margin-top: 5.42vw; /* 上外边距为视口宽度的5.42% */
+    height: 3.39vw; /* 高度为视口宽度的3.39% */
+    display: flex; /* 使用弹性布局 */
+    padding-left: 1.95vw; /* 左内边距为视口宽度的1.95% */
+    background-color: #3CBDA5; /* 背景色为青色 */
+  }
+  
+  /* 设置音频控制选项2样式 */
+  #audio-control-opt2 {
+    width: 7.63vw; /* 宽度为视口宽度的7.63% */
+    height: 3.39vw; /* 高度为视口宽度的3.39% */
+    display: flex; /* 使用弹性布局 */
+    justify-content: center; /* 主轴居中对齐 */
+    align-items: center; /* 交叉轴居中对齐 */
+    background-color: #3CBDA5; /* 背景色为青色 */
+    border-bottom-right-radius: 2.37vw; /* 右下边框半径为视口宽度的2.37% */
+    border-bottom-left-radius: 2.37vw; /* 左下边框半径为视口宽度的2.37% */
+  }
+  
+  /* 设置音频启动容器样式 */
+  .audio-start-container {
+    padding-right: 0.85vw; /* 右内边距为视口宽度的0.85% */
+    display: flex; /* 使用弹性布局 */
+    height: 100%; /* 高度为100% */
+  }
+  
+  /* 设置奖励文本样式 */
+  #reward-text {
+    position: absolute; /* 绝对定位 */
+    font-size: 6.95vw; /* 字体大小为视口宽度的6.95% */
+    top: 4.07vw; /* 顶部边距为视口宽度的4.07% */
+    left: 44.07vw; /* 左侧边距为视口宽度的44.07% */
+    font-weight: 700; /* 字体粗细为700 */
+    font-family: 'CherryBombOne'; /* 字体为CherryBombOne */
+    letter-spacing: 24px; /* 字间距为24像素 */
+    color: rgb(253, 247, 152); /* 文本颜色为淡黄色 */
+  }
+  
+  /* 设置提醒窗口样式 */
+  .remind-window {
+    width: 50.85vw; /* 宽度为视口宽度的50.85% */
+    height: 6.78vw; /* 高度为视口宽度的6.78% */
+    background-color: #fff; /* 背景色为白色 */
+    display: grid; /* 使用网格布局 */
+    grid-template-rows: 100%; /* 网格模板行为100% */
+    border-radius: 20px; /* 边框半径为20像素 */
+    margin-top: 4.15vw; /* 上外边距为视口宽度的4.15% */
+  }
+  
+  /* 设置提醒内容样式 */
+  .remind-content {
+    font-size: 2.2vw; /* 字体大小为视口宽度的2.2% */
+    display: flex; /* 使用弹性布局 */
+    justify-content: center; /* 主轴居中对齐 */
+    align-items: center; /* 交叉轴居中对齐 */
+  }
+  
+  /* 设置提醒选项样式 */
+  .remind-option {
+    display: flex; /* 使用弹性布局 */
+    align-items: center; /* 交叉轴居中对齐 */
+    justify-content: space-around; /* 主轴空间分布为四周对齐 */
+    font-size: 1.69vw; /* 字体大小为视口宽度的1.69% */
+    border-top: 1px solid rgb(213, 213, 213); /* 上边框为1像素实线，颜色为灰色 */
+  }
+  
+  /* 设置提醒选项按钮样式 */
+  .remind-option-btn {
+    background-color: #FCC242; /* 背景色为橙黄色 */
+    color: white; /* 文本颜色为白色 */
+    padding: 1.01vw 2.54vw; /* 上下内边距为视口宽度的1.01%，左右内边距为视口宽度的2.54% */
+    border-radius: 40px; /* 边框半径为40像素 */
+  }
+  
+  /* 设置弹出窗口样式 */
+  .popup-window {
+    width: 42.47vw; /* 宽度为视口宽度的42.47% */
+    height: 22.03vw; /* 高度为视口宽度的22.03% */
+    background-color: #fff; /* 背景色为白色 */
+    display: grid; /* 使用网格布局 */
+    grid-template-rows: 100%; /* 网格模板行为100% */
+    border-radius: 50px; /* 边框半径为50像素 */
+  }
+  
+  /* 设置弹出窗口文本样式 */
+  .popup-text {
+    align-self: end; /* 垂直方向末尾对齐 */
+    justify-self: center; /* 水平方向居中对齐 */
+    text-align: center; /* 文本居中对齐 */
+    font-weight: 700; /* 字体粗细为700 */
+    font-size: 2.03vw; /* 字体大小为视口宽度的2.03% */
+  }
+  
+  /* 设置弹出窗口选项按钮样式 */
+  .popup-option-btn {
+    background-color: #FFA86A; /* 背景色为橙色 */
+    color: white; /* 文本颜色为白色 */
+    padding: 1.1vw 5.42vw; /* 上下内边距为视口宽度的1.1%，左右内边距为视口宽度的5.42% */
+    border-radius: 40px; /* 边框半径为40像素 */
+    align-self: center; /* 垂直方向居中对齐 */
+    justify-self: center; /* 水平方向居中对齐 */
+    font-size: 2.03vw; /* 字体大小为视口宽度的2.03% */
+  }
+  
+  /* 设置弹出窗口取消按钮样式 */
+  .popup-cancle-btn {
+    background-color: rgb(178,170,165); /* 背景色为灰色 */
+    color: white; /* 文本颜色为白色 */
+    padding: 1.1vw 3.35vw; /* 上下内边距为视口宽度的1.1%，左右内边距为视口宽度的3.35% */
+    border-radius: 40px; /* 边框半径为40像素 */
+    align-self: center; /* 垂直方向居中对齐 */
+    justify-self: center; /* 水平方向居中对齐 */
+    font-size: 2.03vw; /* 字体大小为视口宽度的2.03% */
+  }
+  
+  /* 设置子输入控制样式 */
+  .child-input-control {
+    position: absolute; /* 绝对定位 */
+    right: 1.69vw; /* 右侧边距为视口宽度的1.69% */
+    bottom: 1.17vw; /* 底部边距为视口宽度的1.17% */
+    letter-spacing: 0.25vw; /* 字母间距为0.25倍视口宽度 */
+  }
+  
+  /* 设置完成背景样式 */
+  .complete-bg {
+    width: 10.17.vw; /* 宽度为视口宽度的10.17% */
+    height: 10.17.vw; /* 高度为视口宽度的10.17% */
+    display: inline-block; /* 内联块元素 */
+    background-color: red; /* 背景色为红色 */
+  }
+  
+  /* 设置完成图片样式 */
+  #complete-img {
+    width: 59.32vw; /* 宽度为视口宽度的59.32% */
+  }
+
+  /* 弹出窗口背景样式 */
+  .popup-window-bg {
+    width: 100%; /* 宽度为100% */
+    height: 100%; /* 高度为100% */
+    position: absolute; /* 绝对定位 */
+    background-color: #0000006e; /* 背景色为黑色，透明度为0.43 */
+    z-index: 1000; /* 层级为1000 */
+    display: flex; /* 使用弹性布局 */
+    justify-content: center; /* 主轴居中对齐 */
+    align-items: center; /* 交叉轴居中对齐 */
+    display: none; /* 不显示 */
+  }
+
+  /* 弹出窗口按钮按下样式 */
+  .popup-option-btn:active, .popup-cancle-btn:active {
+    filter: brightness(80%); /* 亮度调整为80% */
+  }
+
+  /* 弹出窗口内容样式 */
+  .popup-content {
+    display: grid; /* 使用网格布局 */
+    grid-template-rows: 50% 50%; /* 网格模板行为50%和50% */
+    color: rgb(149, 148, 147); /* 文本颜色为灰色 */
+  }
+  
+  /* 弹出窗口选项样式 */
+  .popup-option {
+    justify-content: space-around; /* 主轴空间分布为四周对齐 */
+    display: flex; /* 使用弹性布局 */
+  }
+  
+  /* 设置对话框选项左侧样式 */
+  .dialog-option-left {
+    position: relative; /* 相对定位 */
+  }
+}

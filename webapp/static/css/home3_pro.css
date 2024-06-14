@@ -1,0 +1,344 @@
+/* 设置 body 的位置为相对 */
+body {
+  position: relative;
+}
+
+/* 对长宽比大于等于 118/82 的设备应用的样式 */
+@media (min-aspect-ratio: 118/82) {
+  /* 设置 body 的高度和宽度 */
+  body {
+    height: 100vh;
+    width: 144vh;
+  }
+
+  /* 设置页面容器的样式 */
+  #wrapper-3 {
+    width: 100%;
+    height: 100%;
+    display: none;
+    grid-template-columns: 50% 50%;
+    padding: 16.1vh 4.88vh 9.02vh 6.83vh;
+    box-sizing: border-box;
+  }
+
+  /* 设置左侧栏的样式 */
+  .home3-left-col {
+    margin-right: 6.34vh;
+  }
+
+  /* 设置左侧栏内部的样式 */
+  .home3-left-col-inner {
+    background-color: #F8B860;
+    border-radius: 40px;
+    width: 100%;
+    height: 100%;
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-rows: 82% 18%;
+  }
+
+  /* 设置角色容器的样式 */
+  .home3-role {
+    background-color: #fff;
+    width: 85%;
+    height: 92%;
+    justify-self: center;
+    align-self: self-end;
+    border-radius: 40px;
+    /* background-image: url("./img/roles/1红毛猫/红毛猫.png"); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* 设置角色名称容器的样式 */
+  .home3-role-name {
+    width: 85%;
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.22vh;
+  }
+
+  /* 设置角色名称输入文本的样式 */
+  .home3-role-name-input-text {
+    font-size: 3.9vh;
+    color: white;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  /* 设置角色名称输入框的样式 */
+  .home3-role-name-input {
+    font-size: 2.44vh;
+    border-radius: 40px;
+    width: 72%;
+    padding: 0 1.95vh;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.174);
+  }
+
+  /* 设置角色名称输入框占位符的样式 */
+  .home3-role-name-input::placeholder {
+    color: #A8A8A8;
+    font-family: 'Microsoft YaHei';
+  }
+
+  /* 设置右侧栏的样式 */
+  .home3-right-col {
+    display: grid;
+    grid-template-rows: repeat(3, 33.33%);
+    margin-left: 1.46vh;
+  }
+
+  /* 设置右侧栏内部元素的样式 */
+  .home3-right-col div {
+    border-radius: 6.83vh;
+  }
+
+  /* 设置角色配置1的样式 */
+  .role-config-1 {
+    margin: 0 0 3.66vh 0;
+    background-color: #FFAE74;
+  }
+
+  /* 设置角色配置2的样式 */
+  .role-config-2 {
+    margin: 1.83vh 0 1.83vh 0;
+    background-color: #36AB95;
+  }
+
+  /* 设置角色配置3的样式 */
+  .role-config-3 {
+    margin: 3.66vh 0 0 0;
+    background-color: #7D72C1;
+  }
+
+  /* 设置角色配置文本容器的样式 */
+  .home3-config-text-container {
+    display: flex;
+    align-items: center;
+  }
+
+  /* 设置角色配置的样式 */
+  .role-config {
+    display: grid;
+    grid-template-columns: 10% 90%;
+    box-shadow: 1px 4px 5px rgba(0, 0, 0, 0.174);
+  }
+
+  /* 设置角色配置图标容器的样式 */
+  .home3-config-icon-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  /* 设置角色配置图标的样式 */
+  .home3-config-icon {
+    width: 13.9vh;
+  }
+
+  /* 设置角色配置文本的样式 */
+  .role-config-text {
+    writing-mode: vertical-rl;
+    color: #fff;
+    font-size: 3.41vh;
+    font-weight: 700;
+    font-family: 'Microsoft Ya Hei';
+    letter-spacing: 0.24vh;
+    margin-left: 2.44vh;
+    writing-mode: vertical-rl; /* 从下到上排列 */
+    transform: rotate(180deg);
+    white-space: nowrap; /* 防止文字换行 */
+  }
+
+  /* 设置确认按钮的样式 */
+  #confirm {
+    position: absolute;
+    width: 8.78vh;
+    top: 1.46vh;
+    right: 3.9vh;
+  }
+
+  /* 设置返回按钮1的样式 */
+  #home3-return-1 {
+    position: absolute;
+    width: 8.78vh;
+    top: 1.46vh;
+    left: 6.83vh;
+  }
+}
+
+/* 对长宽比小于等于 118/82 的设备应用的样式 */
+@media (max-aspect-ratio: 118/82) {
+  /* 设置 body 的高度和宽度 */
+  body {
+    height: 69.49vw;
+    width: 100vw;
+  }
+
+  /* 设置页面容器的样式 */
+  #wrapper-3 {
+    width: 100%;
+    height: 100%;
+    display: none;
+    grid-template-columns: 50% 50%;
+    padding: 11.19vw 3.39vw 6.27vw 4.75vw;
+    box-sizing: border-box;
+  }
+
+  /* 设置左侧栏的样式 */
+  .home3-left-col {
+    margin-right: 4.41vw;
+  }
+
+  /* 设置左侧栏内部的样式 */
+  .home3-left-col-inner {
+    background-color: #F8B860;
+    border-radius: 40px;
+    width: 100%;
+    height: 100%;
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-rows: 82% 18%;
+  }
+
+  /* 设置角色容器的样式 */
+  .home3-role {
+    background-color: #fff;
+    width: 85%;
+    height: 92%;
+    justify-self: center;
+    align-self: self-end;
+    border-radius: 40px;
+    /* background-image: url("./img/roles/1红毛猫/红毛猫.png"); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* 设置角色名称容器的样式 */
+  .home3-role-name {
+    width: 85%;
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.85vw;
+  }
+
+  /* 设置角色名称输入文本的样式 */
+  .home3-role-name-input-text {
+    font-size: 2.71vw;
+    color: white;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  /* 设置角色名称输入框的样式 */
+  .home3-role-name-input {
+    font-size: 1.69vw;
+    border-radius: 40px;
+    width: 72%;
+    padding: 0 1.36vw;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.174);
+  }
+
+  /* 设置角色名称输入框占位符的样式 */
+  .home3-role-name-input::placeholder {
+    color: #A8A8A8;
+    font-family: 'Microsoft YaHei';
+  }
+
+  /* 设置右侧栏的样式 */
+  .home3-right-col {
+    display: grid;
+    grid-template-rows: repeat(3, 33.33%);
+    margin-left: 1.02vw;
+  }
+
+  /* 设置右侧栏内部元素的样式 */
+  .home3-right-col div {
+    border-radius: 56px;
+  }
+
+  /* 设置角色配置1的样式 */
+  .role-config-1 {
+    margin: 0 0 2.54vw 0;
+    background-color: #FFAE74;
+  }
+
+  /* 设置角色配置2的样式 */
+  .role-config-2 {
+    margin: 1.27vw 0 1.27vw 0;
+    background-color: #36AB95;
+  }
+
+  /* 设置角色配置3的样式 */
+  .role-config-3 {
+    margin: 2.54vw 0 0 0;
+    background-color: #7D72C1;
+  }
+
+  /* 设置角色配置文本容器的样式 */
+  .home3-config-text-container {
+    display: flex;
+    align-items: center;
+  }
+
+  /* 设置角色配置的样式 */
+  .role-config {
+    display: grid;
+    grid-template-columns: 10% 90%;
+    box-shadow: 1px 4px 5px rgba(0, 0, 0, 0.174);
+  }
+
+  /* 设置角色配置图标容器的样式 */
+  .home3-config-icon-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  /* 设置角色配置图标的样式 */
+  .home3-config-icon {
+    width: 9.66vw;
+  }
+
+  /* 设置角色配置文本的样式 */
+  .role-config-text {
+    writing-mode: vertical-rl;
+    color: #fff;
+    font-size: 2.37vw;
+    font-weight: 700;
+    font-family: 'Microsoft Ya Hei';
+    letter-spacing: 0.17vw;
+    margin-left: 1.69vw;
+    writing-mode: vertical-rl; /* 从下到上排列 */
+    transform: rotate(180deg);
+    white-space: nowrap; /* 防止文字换行 */
+  }
+
+  /* 设置确认按钮的样式 */
+  #confirm {
+    position: absolute;
+    width: 6.1vw;
+    top: 1.02vw;
+    right: 2.71vw;
+  }
+
+  /* 设置返回按钮1的样式 */
+  #home3-return-1 {
+    position: absolute;
+    width: 6.1vw;
+    top: 1.02vw;
+    left: 4.75vw;
+  }
+}

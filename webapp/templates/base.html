@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Default Title{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <!-- 你可以在这里放置页面的头部内容 -->
+    </header>
+    <main>
+        {% block content %}
+        <!-- 这里是子模板填充的内容 -->
+        {% endblock %}
+    </main>
+    <footer>
+        <!-- 你可以在这里放置页面的底部内容 -->
+    </footer>
+</body>
+</html>

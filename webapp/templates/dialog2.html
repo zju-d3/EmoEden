@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Dialog2</title>
+    <link rel="stylesheet" href="{% static 'css/dialog.css' %}">
+</head>
+<body>
+    <style>
+        #home-place {
+            background-image: url("{% static 'img/scenes/04家里/1.png' %}");
+        }
+        #play-place {
+            background-image: url("{% static 'img/scenes/04游乐场/1.png' %}");
+        }
+        #car-place {
+            background-image: url("{% static 'img/scenes/04地铁/1.png' %}");
+        }
+        #school-place {
+            background-image: url("{% static 'img/scenes/04教室/1.png' %}");
+        }
+        #buy-place {
+            background-image: url("{% static 'img/scenes/04超市/1.png' %}");
+        }
+        #eat-place {
+            background-image: url("{% static 'img/scenes/04餐厅/1.png' %}");
+        } 
+    </style>
+   <button style="display: none;" id="playThinkButton"></button>
+   <audio id="think-audio" controls style="display: none;" src="/tts/think/voice.mp3"></audio>
+   <audio id="reward-audio" controls style="display: none;" src="/tts/reward/reward.mp3"></audio>
+   <div id="tid" style="display: none;">{{tid}}</div>
+
+   <div class="popup-window-bg">
+    <div class="popup-window">
+      <div class="popup-content">
+        <div class="popup-text">
+          <!-- Are you sure to return to the home? -->
+          确定要返回主页面吗？
+        </div>
+        <div class="popup-option">
+          <a class="popup-option-btn" href="{% url 'dashboard' %}">
+            <span>
+              <!-- Yes -->
+              确定
+            </span>
+          </a>
+          
+          <span class="popup-option-btn" onclick="cancelPopup()">
+            <!-- Cancel -->
+            取消
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div id="checkInput" class="popup-window-bg">
+    <div class="popup-window">
+      <div class="popup-content">
+        <div class="popup-text">
+          <!-- Please say something to the character of the story. -->
+          请对故事主人公说一些话
+        </div>
+        <div onclick="checkInput()" id="checkInputBtn" class="popup-option-btn">
+            <!-- Yes -->
+            确定
+        </div>
+      </div>
+      </div>
+  </div>
+  <div id="checkExtend" class="popup-window-bg">
+    <div class="popup-window">
+      <div class="popup-content">
+        <div class="popup-text">
+          <!-- Please extend your text input first. -->
+          请先扩充你的文字输入
+        </div>
+        <div class="popup-option">
+          <span onclick="giveupExtend()" class="popup-cancle-btn">
+            <!-- Give up -->
+            放弃扩充
+          </span>
+          
+          <span class="popup-option-btn" id="checkExtendBtn" onclick="checkExtend()">
+          <!-- Yes -->
+          确定
+        </span>
+        </div>
+      </div>
+      </div>
+  </div>
+  <div id="checkEmotion" class="popup-window-bg">
+    <div class="popup-window">
+      <div class="popup-content">
+        <div class="popup-text">
+          <!-- Please choose the mood of the character
+          <br>
+          in the story. -->
+          请选择故事主人公的心情
+        </div>
+        <div onclick="checkEmotion()" id="checkEmotionBtn" class="popup-option-btn">
+            <!-- Yes -->
+            确定
+        </div>
+      </div>
+      </div>
+  </div>
+  <div id="isExtending" class="popup-window-bg">
+    <div class="popup-window">
+      <div class="popup-content" id="extending-pop">
+        <div class="popup-text" id="extending-pop-text">
+            <div>
+                 <!-- Successfully submitted, extending  -->
+                 上传成功！正在扩充中，请稍等
+            </div>
+            <!-- <div>
+                in progress, please wait.
+            </div> -->
+         
+        </div>
+      </div>
+      </div>
+  </div>
+
+    <div class="container">
+
+      {% csrf_token %}
+        <!-- <img onclick="openPopup()" id="dialog-left-icon" width="72px" src="{% static 'img/home2/左箭头.png' %}" alt="">
+        <img onclick="clickNext()" id="dialog-right-icon" width="72px" src="{% static 'img/home2/右箭头.png' %}" alt=""> -->
+        <div class="wrapper">
+          <div class="dialog">
+            <div class="dialog-top">
+              {% if request.session.place == "家庭" %}
+              <div id="home-place" class="dialog-content">
+                <div id="reward-container">
+                  <img id="reward-img" src="{% static 'img/dialog/reward.png' %}" alt="">
+                  <span id="reward-text">X1</span>
+                </div>
+                <div class="dialog-content-left">
+                  <img src="{{role_path}}" class="role">
+                  <div class="audio-control">
+                    <div onclick="controlAudio()" class="audio-start-container">
+                      <img width="40px" id="audio-control" name="播放" src="{% static 'img/dialog/播放.svg' %}" alt="">
+                    </div>
+                    <div onclick="replayAudio()" class="audio-replay-container">
+                      <img width="40px" src="{% static 'img/dialog/replay.svg' %}" alt="">
+                    </div>
+                    <div onclick="clickAudioCtrl()" id="audio-control-default">
+                      1.0x
+                    </div>
+                    <div class="audio-control-opt" style="
+                    color: #fff;
+                    ">
+                        <div id="audio-control-opt1">
+                          0.75x
+                        </div>
+                        <div id="audio-control-opt2">
+                          0.5x
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="dialog-content-right">
+                    <span class="gpt-dialog">
+                      <span class="gpt-dialog-inner">
+                        {{ random_word }}
+                      </span>
+                        
+                    </span>
+                    <span class="child-dialog">
+                        <!-- <textarea placeholder="Please enter texts..." onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea> -->
+                      <textarea placeholder="请输入文字......" onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea>
+                        <div class="child-input-control">
+                          <span onclick="playExtend()" style="display: none;" id="play-extend">
+                            <!-- Play -->
+                            播放
+                          </span>
+                          <span onclick="submitChildText()" id="extend-input-btn">
+                            <!-- Extend -->
+                            扩充
+                          </span>
+                        </div>
+                    </span>
+                </div>
+              </div>
+              {% elif request.session.place == "娱乐" %}
+              <div id="play-place" class="dialog-content">
+                <div id="reward-container">
+                  <img id="reward-img" src="{% static 'img/dialog/reward.png' %}" alt="">
+                  <span id="reward-text">X1</span>
+                </div>
+                <div class="dialog-content-left">
+                  <img src="{{role_path}}" class="role">
+                  <div class="audio-control">
+                    <div onclick="controlAudio()" class="audio-start-container">
+                      <img width="40px" id="audio-control" name="播放" src="{% static 'img/dialog/播放.svg' %}" alt="">
+                    </div>
+                    <div onclick="replayAudio()" class="audio-replay-container">
+                      <img width="40px" src="{% static 'img/dialog/replay.svg' %}" alt="">
+                    </div>
+                    <div onclick="clickAudioCtrl()" id="audio-control-default">
+                      1.0x
+                    </div>
+                    <div class="audio-control-opt" style="
+                    color: #fff;
+                    ">
+                        <div id="audio-control-opt1">
+                          0.75x
+                        </div>
+                        <div id="audio-control-opt2">
+                          0.5x
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="dialog-content-right">
+                    <span class="gpt-dialog">
+                      <span class="gpt-dialog-inner">
+                        {{ random_word }}
+                      </span>
+                    </span>
+                    <span class="child-dialog">
+                      <!--   -->
+                      <textarea placeholder="请输入文字......" onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea>
+                      <div class="child-input-control">
+                        <span onclick="playExtend()" style="display: none;" id="play-extend">
+                          <!-- Play -->
+                          播放
+                        </span>
+                        <span onclick="submitChildText()" id="extend-input-btn">
+                          <!-- Extend -->
+                          扩充
+                        </span>
+                      </div>
+                    </span>
+                </div>
+              </div>
+              {% elif request.session.place == "交通" %}
+              <div id="car-place" class="dialog-content">
+                <div id="reward-container">
+                  <img id="reward-img" src="{% static 'img/dialog/reward.png' %}" alt="">
+                  <span id="reward-text">X1</span>
+                </div>
+                <div class="dialog-content-left">
+                  <img src="{{role_path}}" class="role">
+                  <div class="audio-control">
+                    <div onclick="controlAudio()" class="audio-start-container">
+                      <img width="40px" id="audio-control" name="播放" src="{% static 'img/dialog/播放.svg' %}" alt="">
+                    </div>
+                    <div onclick="replayAudio()" class="audio-replay-container">
+                      <img width="40px" src="{% static 'img/dialog/replay.svg' %}" alt="">
+                    </div>
+                    <div onclick="clickAudioCtrl()" id="audio-control-default">
+                      1.0x
+                    </div>
+                    <div class="audio-control-opt" style="
+                    color: #fff;
+                    ">
+                        <div id="audio-control-opt1">
+                          0.75x
+                        </div>
+                        <div id="audio-control-opt2">
+                          0.5x
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="dialog-content-right">
+                    <span class="gpt-dialog">
+                      <span class="gpt-dialog-inner">
+                        {{ random_word }}
+                      </span>
+                    </span>
+                    <span class="child-dialog">
+                      <!-- <textarea placeholder="Please enter texts..." onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea> -->
+                      <textarea placeholder="请输入文字......" onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea>
+                      <div class="child-input-control">
+                        <span onclick="playExtend()" style="display: none;" id="play-extend">
+                          <!-- Play -->
+                          播放
+                        </span>
+                        <span onclick="submitChildText()" id="extend-input-btn">
+                          <!-- Extend -->
+                          扩充
+                        </span>
+                      </div>
+                  </span>
+                </div>
+              </div>
+              {% elif request.session.place == "校园" %}
+              <div id="school-place" class="dialog-content">
+                <div id="reward-container">
+                  <img id="reward-img" src="{% static 'img/dialog/reward.png' %}" alt="">
+                  <span id="reward-text">X1</span>
+                </div>
+                <div class="dialog-content-left">
+                  <img src="{{role_path}}" class="role">
+                  <div class="audio-control">
+                    <div onclick="controlAudio()" class="audio-start-container">
+                      <img width="40px" id="audio-control" name="播放" src="{% static 'img/dialog/播放.svg' %}" alt="">
+                    </div>
+                    <div onclick="replayAudio()" class="audio-replay-container">
+                      <img width="40px" src="{% static 'img/dialog/replay.svg' %}" alt="">
+                    </div>
+                    <div onclick="clickAudioCtrl()" id="audio-control-default">
+                      1.0x
+                    </div>
+                    <div class="audio-control-opt" style="
+                    color: #fff;
+                    ">
+                        <div id="audio-control-opt1">
+                          0.75x
+                        </div>
+                        <div id="audio-control-opt2">
+                          0.5x
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="dialog-content-right">
+                    <span class="gpt-dialog">
+                      <span class="gpt-dialog-inner">
+                        {{ random_word }}
+                      </span>
+                    </span>
+                    <span class="child-dialog">
+                      <!-- <textarea placeholder="Please enter texts..." onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea> -->
+                      <textarea placeholder="请输入文字......" onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea>
+                      <div class="child-input-control">
+                        <span onclick="playExtend()" style="display: none;" id="play-extend">
+                          <!-- Play -->
+                          播放
+                        </span>
+                        <span onclick="submitChildText()" id="extend-input-btn">
+                          <!-- Extend -->
+                          扩充
+                        </span>
+                      </div>
+                  </span>
+                </div>
+              </div>
+              {% elif request.session.place == "购物" %}
+              <div id="buy-place" class="dialog-content">
+                <div id="reward-container">
+                  <img id="reward-img" src="{% static 'img/dialog/reward.png' %}" alt="">
+                  <span id="reward-text">X1</span>
+                </div>
+                <div class="dialog-content-left">
+                  <img src="{{role_path}}" class="role">
+                  <div class="audio-control">
+                    <div onclick="controlAudio()" class="audio-start-container">
+                      <img width="40px" id="audio-control" name="播放" src="{% static 'img/dialog/播放.svg' %}" alt="">
+                    </div>
+                    <div onclick="replayAudio()" class="audio-replay-container">
+                      <img width="40px" src="{% static 'img/dialog/replay.svg' %}" alt="">
+                    </div>
+                    <div onclick="clickAudioCtrl()" id="audio-control-default">
+                      1.0x
+                    </div>
+                    <div class="audio-control-opt" style="
+                    color: #fff;
+                    ">
+                        <div id="audio-control-opt1">
+                          0.75x
+                        </div>
+                        <div id="audio-control-opt2">
+                          0.5x
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="dialog-content-right">
+                    <span class="gpt-dialog">
+                      <span class="gpt-dialog-inner">
+                        {{ random_word }}
+                      </span>
+                    </span>
+                    <span class="child-dialog">
+                      <!-- <textarea placeholder="Please enter texts..." onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea> -->
+                      <textarea placeholder="请输入文字......" onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea>
+                      <div class="child-input-control">
+                        <span onclick="playExtend()" style="display: none;" id="play-extend">
+                          <!-- Play -->
+                          播放
+                        </span>
+                        <span onclick="submitChildText()" id="extend-input-btn">
+                          <!-- Extend -->
+                          扩充
+                        </span>
+                      </div>
+                  </span>
+                </div>
+              </div>
+              {% elif request.session.place == "用餐" %}
+              <div id="eat-place" class="dialog-content">
+                <div id="reward-container">
+                  <img id="reward-img" src="{% static 'img/dialog/reward.png' %}" alt="">
+                  <span id="reward-text">X1</span>
+                </div>
+                <div class="dialog-content-left">
+                  <img src="{{role_path}}" class="role">
+                  <div class="audio-control">
+                    <div onclick="controlAudio()" class="audio-start-container">
+                      <img id="audio-control" name="播放" src="{% static 'img/dialog/播放.svg' %}" alt="">
+                    </div>
+                    <div onclick="replayAudio()" class="audio-replay-container">
+                      <img id="audio-replay" src="{% static 'img/dialog/replay.svg' %}" alt="">
+                    </div>
+                    <div onclick="clickAudioCtrl()" id="audio-control-default">
+                      1.0x
+                    </div>
+                    <div class="audio-control-opt" style="
+                    color: #fff;
+                    ">
+                        <div id="audio-control-opt1">
+                          0.75x
+                        </div>
+                        <div id="audio-control-opt2">
+                          0.5x
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="dialog-content-right">
+                    <span class="gpt-dialog">
+                      <span class="gpt-dialog-inner">
+                        {{ random_word }}
+                      </span>
+                    </span>
+                    <span class="child-dialog">
+                      <!-- <textarea placeholder="Please enter texts..." onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea> -->
+                      <textarea placeholder="请输入文字......" onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea>
+                      <div class="child-input-control">
+                        <span onclick="playExtend()" style="display: none;" id="play-extend">
+                          <!-- Play -->
+                          播放
+                        </span>
+                        <span onclick="submitChildText()" id="extend-input-btn">
+                          <!-- Extend -->
+                          扩充
+                        </span>
+                      </div>
+                  </span>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+            <div class="dialog-option">
+              {% if tid == 6 %}
+              <div class="dialog-option-left">
+                <img id="complete-img" src="{% static 'img/dialog/complete.png' %}" alt="">
+                <audio style="display: none;" controls="controls" hidden id="dialog-audio"  src="{{ request.session.tts_file }}">123</audio>
+                <audio style="display: none;" controls="controls" hidden id="extend-audio"  src="{{ request.session.extend_file }}">123</audio>
+
+
+              </div>
+              {% elif tid > 4 %}
+              <div class="dialog-option-left">
+                <span class="option-container">
+                  <button onclick="sendMood('敬佩')" class="option-btn"><img class="emotion-option" id="emotion-option1" src="{{child_avatar}}/喜.png" alt=""></button>
+                  <span class="option-text">
+                    <!-- Admire -->
+                    敬佩
+                  </span>
+                  <span class="option-bg"></span>
+                </span>
+                <span class="option-container">
+                  <button onclick="sendMood('感激')" class="option-btn"><img class="emotion-option" src="{{child_avatar}}/喜.png" alt=""></button>
+                  <span class="option-text">
+                    <!-- Grateful -->
+                    感激
+                  </span>
+                  <span class="option-bg"></span>
+                </span>
+                <span class="option-container">
+                  <button onclick="sendMood('懊悔')" class="option-btn"><img class="emotion-option" src="{{child_avatar}}/哀.png" alt=""></button>
+                  <span class="option-text">
+                    <!-- Regretful -->
+                    懊悔
+                  </span>
+                  <span class="option-bg"></span>
+                </span>
+                <span class="option-container">
+                  <button onclick="sendMood('羞愧')" class="option-btn"><img class="emotion-option" src="{{child_avatar}}/惧.png" alt=""></button>
+                  <span class="option-text">
+                    <!-- Ashamed -->
+                    羞愧
+                  </span>
+                  <span class="option-bg"></span>
+                </span>
+                <audio style="display: none;" controls="controls" hidden id="dialog-audio"  src="{{ request.session.tts_file }}">123</audio>
+                <audio style="display: none;" controls="controls" hidden id="extend-audio"  src="{{ request.session.extend_file }}">123</audio>
+
+              </div>
+              {% else %}
+              <div class="dialog-option-left">
+                <span class="option-container">
+                  <button onclick="sendMood('敬佩')" class="option-btn"><img class="emotion-option" style="background-color: transparent;" id="emotion-option1" src="{%static 'img/home1/敬佩.png' %}" alt=""></button>
+                  <span class="option-text">
+                    <!-- Admire -->
+                    敬佩
+                  </span>
+                  <span class="option-bg"></span>
+                </span>
+                <span class="option-container">
+                  <button onclick="sendMood('感激')" class="option-btn"><img class="emotion-option" style="background-color: transparent;" src="{%static 'img/home1/感激.png' %}" alt=""></button>
+                  <span class="option-text">
+                    <!-- Grateful -->
+                    感激
+                  </span>
+                  <span class="option-bg"></span>
+                </span>
+                <span class="option-container">
+                  <button onclick="sendMood('懊悔')" class="option-btn"><img class="emotion-option" style="background-color: transparent;" src="{%static 'img/home1/懊悔.png' %}" alt=""></button>
+                  <span class="option-text">
+                    <!-- Regretful -->
+                    懊悔
+                  </span>
+                  <span class="option-bg"></span>
+                </span>
+                <span class="option-container">
+                  <button onclick="sendMood('羞愧')" class="option-btn"><img class="emotion-option" style="background-color: transparent;" src="{%static 'img/home1/羞愧.png' %}" alt=""></button>
+                  <span class="option-text">
+                    <!-- Ashamed -->
+                    羞愧
+                  </span>
+                  <span class="option-bg"></span>
+                </span>
+                <audio style="display: none;" controls="controls" hidden id="dialog-audio"  src="{{ request.session.tts_file }}">123</audio>
+                <audio style="display: none;" controls="controls" hidden id="extend-audio"  src="{{ request.session.extend_file }}">123</audio>
+
+              </div>
+              {% endif %}
+
+              <div class="dialog-option-right">
+                <div class="dialog-option-right-container">
+                  <span onclick="clickNext()" class="dialog-option-right-btn">
+                    <img width="40%" src="{% static 'img/dialog/下一步.svg' %}" alt="">
+                  </span>
+                  <span>
+                    <!-- Next -->
+                    下一步
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <script>
+        let mediaRecorder;
+        let chunks = [];
+        let statusElement = document.getElementById('status');
+        // let recordButton = document.getElementById('recordButton');
+        let sendTextBtn = document.getElementById('send-user-word');
+        let audioOpt1 = document.getElementById('audio-control-opt1');
+        let audioOpt2 = document.getElementById('audio-control-opt2');
+        let isTextExtend = false;
+        let isEmotionChosen = false;
+        let tid = parseInt(document.getElementById('tid').innerText);
+        let isAnsTrue = 0;
+        
+        audioOpt1.addEventListener('click', clickAudioOpt, this);
+        audioOpt2.addEventListener('click', clickAudioOpt, this);
+
+        function hidePlayExtend() {
+          let extendAudioBtn = document.getElementById('play-extend');
+          extendAudioBtn.style.display = 'none';
+          console.log("123123123");
+
+        }
+        function showIsExtending() {
+          let isExtending = document.getElementById('isExtending');
+          isExtending.style.display = 'flex';
+        }
+        function closeIsExtending() {
+          let isExtending = document.getElementById('isExtending');
+          isExtending.style.display = 'none';
+
+        }
+
+        function checkInput() {
+          let checkInput = document.getElementById('checkInput');
+          checkInput.style.display = 'none'
+        }
+
+        function checkEmotion() {
+          let checkEmotion = document.getElementById('checkEmotion');
+          checkEmotion.style.display = 'none';
+        }
+
+        function checkExtend() {
+          let checkExtend = document.getElementById('checkExtend');
+          checkExtend.style.display = 'none';
+        }
+
+        function playExtend() {
+          let extendAudio = document.getElementById('extend-audio');
+          extendAudio.play();
+          let audio = document.getElementById('dialog-audio');
+          let container = document.getElementsByClassName('audio-start-container')[0];
+          audio.pause();
+          console.log('暂停');
+          container.innerHTML = `<img width="40px" id="audio-control" name="播放" src="{% static 'img/dialog/播放.svg' %}" alt="">`;
+
+        }
+       
+
+        function refreshAudioSpeed() {
+          let defaultSpeed = document.getElementById('audio-control-default');
+          let speed1 = document.getElementById('audio-control-opt1');
+          let speed2 = document.getElementById('audio-control-opt2');
+          defaultSpeed.innerText = "1.0x";
+          speed1.innerText = "0.75x";
+          speed2.innerText = "0.5x";
+        }
+        function controlAudio() {
+          let audio = document.getElementById('dialog-audio');
+          let val = document.getElementById('audio-control').name;
+          let container = document.getElementsByClassName('audio-start-container')[0];
+          let extendAudio = document.getElementById('extend-audio');
+
+          switch (val) {
+            case "播放":
+              extendAudio.pause();
+              audio.play();
+              console.log('播放');
+              container.innerHTML = `<img width="40px" id="audio-control" name="暂停" src="{% static 'img/dialog/暂停.svg' %}" alt="">`;
+              break;
+            case "暂停":
+              audio.pause();
+              console.log('暂停');
+              container.innerHTML = `<img width="40px" id="audio-control" name="播放" src="{% static 'img/dialog/播放.svg' %}" alt="">`;
+            default:
+              break;
+          }
+        }
+        function replayAudio() {
+          refreshAudioSpeed();
+          let audio = document.getElementById('dialog-audio');
+          let container = document.getElementsByClassName('audio-start-container')[0];
+          container.innerHTML = `<img width="40px" id="audio-control" name="暂停" src="{% static 'img/dialog/暂停.svg' %}" alt="">`;
+          audio.load();
+          audio.play();
+
+        }
+
+        function clickAudioOpt(ev) {
+          let audioCtrlDefault = document.getElementById('audio-control-default');
+          let temp = audioCtrlDefault.innerText;
+          audioCtrlDefault.innerText = ev.target.innerText;
+          ev.target.innerText = temp;
+          let audio = document.getElementById('dialog-audio')
+          audio.playbackRate = parseFloat(audioCtrlDefault.innerText)
+          let AudioCtrl = document.getElementsByClassName('audio-control-opt')[0];
+          AudioCtrl.style.display = 'none'
+        }
+
+        function clickAudioCtrl() {
+          let AudioCtrl = document.getElementsByClassName('audio-control-opt')[0];
+          if(AudioCtrl.style.display === 'none')
+            AudioCtrl.style.display = 'block'
+          else
+            AudioCtrl.style.display = 'none'
+            
+        }
+
+        function giveupExtend() {
+          checkExtend()
+          let user_words = document.getElementById("child-dialog-text").value;
+          fetch('/upload_child_input/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+                body: JSON.stringify({ 'user_words': user_words }),
+            }).then(response => response.json())
+                  .then(data => {
+                    const user_words = data.user_words;
+                    console.log(user_words);
+                    let childDialog = document.getElementById('child-dialog-text');
+                    childDialog.value = user_words;
+                    if(isAnsTrue === 1 && tid >= 2 && tid <= 4) {
+                      let dialogContent1 = document.getElementsByClassName('dialog-content-left')[0];
+                      let dialogContent2 = document.getElementsByClassName('dialog-content-right')[0];
+                      dialogContent1.style.display = 'none';
+                      dialogContent2.style.display = 'none';
+                      let rewardContainer = document.getElementById('reward-container');
+                      rewardContainer.style.display = 'block';
+                      let rewardAudio = document.getElementById('reward-audio');
+                      rewardAudio.play();
+                    }
+                    let playThinkButton = document.getElementById('playThinkButton')
+                    let thinkAudio = document.getElementById('think-audio');
+                    let audio = document.getElementById('dialog-audio')
+                    audio.pause();
+                    thinkAudio.play();
+                    playThinkButton.click();
+                    window.location.reload();
+                  })
+         
+        }
+
+        function clickNext() {
+          let childInput = document.getElementById('child-dialog-text').value;
+          if(childInput == "" && tid <= 5) {
+            let checkInput = document.getElementById('checkInput');
+            checkInput.style.display = "flex";
+          } else {
+            if(!isEmotionChosen && tid >=2  && tid <=5) {
+              let checkEmotion = document.getElementById('checkEmotion');
+              checkEmotion.style.display = "flex";
+          } else {
+            if(!isTextExtend && tid <= 5) {
+              let checkExtend = document.getElementById('checkExtend');
+              checkExtend.style.display = "flex";
+            }
+            else {
+              if(isAnsTrue === 1 && tid >= 2 && tid <= 4) {
+                let dialogContent1 = document.getElementsByClassName('dialog-content-left')[0];
+                let dialogContent2 = document.getElementsByClassName('dialog-content-right')[0];
+                dialogContent1.style.display = 'none';
+                dialogContent2.style.display = 'none';
+                let rewardContainer = document.getElementById('reward-container');
+                rewardContainer.style.display = 'block';
+                let rewardAudio = document.getElementById('reward-audio');
+                rewardAudio.play();
+              }
+              let playThinkButton = document.getElementById('playThinkButton')
+              let thinkAudio = document.getElementById('think-audio');
+              let audio = document.getElementById('dialog-audio')
+              audio.pause();
+              thinkAudio.play();
+              playThinkButton.click();
+              window.location.reload();
+            }
+
+          }
+          }
+        }
+
+        function submitChildText() {
+          let user_words = document.getElementById("child-dialog-text").value;
+          showIsExtending();
+          fetch('/upload_audio/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+                body: JSON.stringify({ 'user_words': user_words }),
+            }).then(response => response.json())
+                  .then(data => {
+                    closeIsExtending()
+                    isTextExtend = true;
+                    const user_words = data.user_words;
+                    console.log(user_words);
+                    let childDialog = document.getElementById('child-dialog-text');
+                    let extendAudio = document.getElementById('extend-audio');
+                    let playExtendAudioBtn = document.getElementById('play-extend');
+                    playExtendAudioBtn.style.display = 'inline'
+                    extendAudio.src = data.extend_file;
+                    childDialog.value = user_words;
+            }).catch(function (error) {
+              closeIsExtending()
+              });
+        }
+        function startRecording() {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(function (stream) {
+                    mediaRecorder = new MediaRecorder(stream,{ mimeType: "audio/webm" });
+                    mediaRecorder.ondataavailable = function (e) {
+                        chunks.push(e.data);
+                    };
+                    mediaRecorder.onstop = function () {
+                        statusElement.textContent = '录音已停止，准备上传...';
+                        setTimeout(uploadAudio, 500);
+                    };
+                    mediaRecorder.startTime = Date.now();
+                    mediaRecorder.start();
+                    statusElement.textContent = '录音中...';
+                })
+                .catch(function (error) {
+                    statusElement.textContent = '无法访问麦克风：' + error.message;
+                });
+        }
+
+        function stopRecording() {
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+                mediaRecorder.stopTime = Date.now();
+                // Stop the stream and release the media recorder resources
+                let stream = mediaRecorder.stream;
+                let tracks = stream.getTracks();
+                tracks.forEach(function (track) {
+                    track.stop();
+                });
+                mediaRecorder = null;
+            }
+        }
+
+        function uploadAudio() {
+            if (chunks.length > 0) {
+                let blob = new Blob(chunks, { type: 'audio/webm' });
+                let formData = new FormData();
+                formData.append('audio_file', blob, 'recording.webm');
+                fetch('/upload_audio/', {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'X-CSRFToken': getCookie('csrftoken') },
+                }) .then(response => response.json())
+                  .then(data => {
+                    const user_words = data.user_words;
+                    console.log(user_words);
+                    let childDialog = document.getElementsByClassName('child-dialog')[0];
+                    childDialog.innerText = user_words;
+                  });
+
+            }
+        }
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                let cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    let cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+
+        function findOtherBtn(emo) {
+          switch (emo) {
+            case "敬佩":
+              return[0,1,2,3]
+              break;
+            case "感激":
+              return[1,0,2,3]
+              break;
+            case "懊悔":
+              return[2,0,1,3]
+              break;
+            case "羞愧":
+              return[3,0,1,2]
+              break;
+          
+            default:
+              break;
+          }
+        }
+
+        function changeOtherEmo(vals) {
+          let optionBtn = document.getElementsByClassName('option-btn')[vals[0]];
+          let optionBg = document.getElementsByClassName('option-bg')[vals[0]];
+          let optionBtn1 = document.getElementsByClassName('option-btn')[vals[1]];
+          let optionBg1 = document.getElementsByClassName('option-bg')[vals[1]];
+          let optionBtn2 = document.getElementsByClassName('option-btn')[vals[2]];
+          let optionBg2 = document.getElementsByClassName('option-bg')[vals[2]];
+          let optionBtn3 = document.getElementsByClassName('option-btn')[vals[3]];
+          let optionBg3 = document.getElementsByClassName('option-bg')[vals[3]];
+          optionBtn.style.filter = ""
+          optionBg.style.filter = ""
+          optionBtn1.style.filter = "brightness(.6)"
+          optionBg1.style.filter = "brightness(.6)"
+          optionBtn2.style.filter = "brightness(.6)"
+          optionBg2.style.filter = "brightness(.6)"
+          optionBtn3.style.filter = "brightness(.6)"
+          optionBg3.style.filter = "brightness(.6)"
+        }
+
+        function sendMood(mood) {
+          let tid = parseInt(document.getElementById("tid").innerText);
+          let otherEmo = findOtherBtn(mood);
+          changeOtherEmo(otherEmo)
+            fetch('/update_mood_pro/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+                body: JSON.stringify({ 'mood': mood, 'tid': tid }),
+            })
+            .then(response => response.json()).then(data => {
+              isEmotionChosen = true;
+              isAnsTrue = data.ansTrue
+            }) 
+          }
+        
+        let playButton = document.getElementById('playButton');
+        
+        // 使用 Web Audio API 播放音频
+        document.getElementById('playButton').addEventListener('click', function () {
+            // 创建 AudioContext 对象
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+            // 加载音频文件
+            // fetch('/tts/think/voice.mp3')
+            fetch('{{ request.session.tts_file }}')
+                .then(response => response.arrayBuffer())
+                .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+                .then(audioBuffer => {
+                    // 创建 AudioBufferSourceNode 并连接到输出
+                    const sourceNode = audioContext.createBufferSource();
+                    sourceNode.buffer = audioBuffer;
+                    sourceNode.connect(audioContext.destination);
+
+                    // 播放音频
+                    sourceNode.start();
+                })
+                .catch(error => console.error('加载音频失败：', error));
+        });
+        // playButton.click();
+
+
+
+        function openPopup() {
+          let popupWindow = document.getElementsByClassName('popup-window-bg')[0];
+          popupWindow.style.display = "flex"
+        }
+        function cancelPopup() {
+          let popupWindow = document.getElementsByClassName('popup-window-bg')[0];
+          popupWindow.style.display = "none"
+        }
+        
+
+    </script>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,259 @@
+
+html {
+  height: 100%;
+  background-color: #FEF6F4;
+}
+@media (min-aspect-ratio: 118/82) {
+  body {
+    margin: 0px auto;
+    padding: 0px;
+    height: 100vh;
+    width: 144vh;
+  }
+  .log-top-text {
+    position: absolute;
+    font-size: 5.85vh;
+    font-weight: 700;
+    color: #fff;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .log-content-row1, .log-content-row2, .log-content-row3 {
+    height: 27%;
+    margin: 0 5.85vh 3.41vh 5.85vh;
+    border-radius: 48px;
+    box-shadow:  6px 6px 7px rgba(0, 0, 0, 0.203)
+  }
+  .log-content {
+    margin-top: 3.9vh;
+    height: 69.02vh;
+    overflow: auto;
+  }
+  
+  .log-date-title-container {
+    color: white;
+    font-size: 4.63vh;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 3.9vh;
+    margin-left: 2.31vh;
+  }
+  .log-date-item-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding-right: 1.95vh;
+    font-family: 'CherryBombOne';
+  }
+  .log-date-item1, .log-date-item2, .log-date-item3, .log-date-inactive {
+    width: 80%;
+    height: 80%;
+    border-radius: 5.85vh;
+    margin-right: 2.2vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5.85vh;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    box-shadow:  4px 4px 7px rgba(0, 0, 0, 0.144)
+  }
+  .log-date-inactive span {
+    margin-bottom: 3.66vh;
+  }
+  #log-return-1 {
+    position: absolute;
+    top: 1.95vh;
+    left: 3.9vh;
+  }
+  #log-return2-container {
+    position: absolute;
+    width: 8.78vh;
+    height: 8.78vh;
+    top: 1.95vh;
+    right: 3.9vh;
+    z-index: 1000;
+  }
+
+}
+
+@media (max-aspect-ratio: 118/82) {
+  body {
+    margin: 0px auto;
+    padding: 0px;
+    height: 69.49vw;
+    width: 100vw;
+    position: relative;
+  }
+  .log-top-text {
+    position: absolute;
+    font-size: 4.07vw;
+    font-weight: 700;
+    color: #fff;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .log-content-row1, .log-content-row2, .log-content-row3 {
+    height: 27%;
+    margin: 0 4.07vw 28px 4.07vw;
+    border-radius: 48px;
+    box-shadow:  6px 6px 7px rgba(0, 0, 0, 0.203)
+  }
+
+
+  .log-top-text {
+    position: absolute;
+    font-size: 4.07vw;
+    font-weight: 700;
+    color: #fff;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .log-content-row1, .log-content-row2, .log-content-row3 {
+    height: 27%;
+    margin: 0 4.07vw 2.37vw 4.07vw;
+    border-radius: 48px;
+    box-shadow:  6px 6px 7px rgba(0, 0, 0, 0.203)
+  }
+  
+  
+  .log-content {
+    margin-top: 2.71vw;
+    height: 47.97vw;
+    overflow: auto;
+  }
+  
+  .log-date-title-container {
+    color: white;
+    font-size: 3.22vw;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 2.71vw;
+    margin-left: 1.02vw;
+  }
+  
+
+  .log-date-item-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding-right: 1.36vw;
+    font-family: 'CherryBombOne';
+  }
+
+  .log-date-item1, .log-date-item2, .log-date-item3, .log-date-inactive {
+    width: 80%;
+    height: 80%;
+    border-radius: 48px;
+    margin-right: 1.53vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4.07vw;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    box-shadow:  4px 4px 7px rgba(0, 0, 0, 0.144)
+  
+  }
+  .log-date-inactive span {
+    margin-bottom: 2.54vw;
+  }
+  
+  .score-icon-container {
+    display: flex;
+  }
+  #log-return-1 {
+    position: absolute;
+    top: 1.36vw;
+    left: 2.71vw;
+  }
+  #log-return2-container {
+    position: absolute;
+    width: 6.1vw;
+    height: 6.1vw;
+    top: 1.36vw;
+    right: 2.71vw;
+    z-index: 1000;
+  }
+
+  
+}
+
+
+
+
+.log-container {
+  width: 100%;
+  height: 100%;
+}
+
+.log-wrapper {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  box-sizing: border-box;
+  background-color: #FEF6F4;
+  grid-template-rows: 27% 73%;
+}
+.log-top {
+  display: flex;
+  align-items: end;
+  position: relative;
+}
+
+
+
+.log-content-row1 {
+  background-color: #ACCBFF ;
+  display: grid;
+  grid-template-columns: 13.5% 86.5%;
+}
+.log-content-row2 {
+  background-color: #FFCCA8 ;
+  display: grid;
+  grid-template-columns: 13.5% 86.5%;
+}
+.log-content-row3 {
+  background-color: #79E3CF ;
+  display: grid;
+  grid-template-columns: 13.5% 86.5%;
+}
+
+
+.log-date-title-container span {
+  text-align: center;
+}
+
+@font-face {
+  font-family: 'CherryBombOne';
+  src: url('/static/ttf/CherryBombOne-Regular.ttf');
+}
+
+.log-date-item1 {
+  background-color:#75A1EB ;
+
+}
+.log-date-item2 {
+  background-color: #FFA463 ;
+}
+.log-date-item3 {
+  background-color: #17CBA8 ;
+}
+.log-date-inactive {
+  background-color: #ffffff80;
+}
+
+.score-icon-container {
+  display: flex;
+}
+.log-container {
+  position: relative;
+}

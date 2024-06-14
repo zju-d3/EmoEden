@@ -1,0 +1,298 @@
+/* 设置整个页面的高度为100%，并设置背景颜色 */
+html {
+  height: 100%;
+  background-color: #FEF6F4;
+}
+
+/* 根据屏幕宽高比进行响应式布局 */
+@media (min-aspect-ratio: 118/82) {
+  /* 设置body样式 */
+  body {
+    margin: 0px auto;
+    padding: 0px;
+    height: 100vh;
+    width: 144vh;
+  }
+
+  /* 设置顶部文本样式 */
+  .log-top-text {
+    position: absolute;
+    font-size: 5.85vh;
+    font-weight: 700;
+    color: #fff;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* 设置内容行样式 */
+  .log-content-row1,
+  .log-content-row2,
+  .log-content-row3 {
+    height: 27%;
+    margin: 0 5.85vh 3.41vh 5.85vh;
+    border-radius: 48px;
+    box-shadow: 6px 6px 7px rgba(0, 0, 0, 0.203);
+  }
+
+  /* 设置内容容器样式 */
+  .log-content {
+    margin-top: 3.9vh;
+    height: 69.02vh;
+    overflow: auto;
+  }
+
+  /* 设置日期标题容器样式 */
+  .log-date-title-container {
+    color: white;
+    font-size: 4.63vh;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 3.9vh;
+    margin-left: 2.31vh;
+  }
+
+  /* 设置日期条目容器样式 */
+  .log-date-item-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding-right: 1.95vh;
+    font-family: 'CherryBombOne';
+  }
+
+  /* 设置日期条目样式 */
+  .log-date-item1,
+  .log-date-item2,
+  .log-date-item3,
+  .log-date-inactive {
+    width: 80%;
+    height: 80%;
+    border-radius: 5.85vh;
+    margin-right: 2.2vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5.85vh;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.144);
+  }
+
+  /* 设置日期非活动样式 */
+  .log-date-inactive span {
+    margin-bottom: 3.66vh;
+  }
+
+  /* 设置返回按钮1样式 */
+  #log-return-1 {
+    position: absolute;
+    top: 1.95vh;
+    left: 3.9vh;
+  }
+
+  /* 设置返回按钮2容器样式 */
+  #log-return2-container {
+    position: absolute;
+    width: 8.78vh;
+    height: 8.78vh;
+    top: 1.95vh;
+    right: 3.9vh;
+    z-index: 1000;
+  }
+}
+
+/* 根据屏幕宽高比进行响应式布局 */
+@media (max-aspect-ratio: 118/82) {
+  /* 设置body样式 */
+  body {
+    margin: 0px auto;
+    padding: 0px;
+    height: 69.49vw;
+    width: 100vw;
+    position: relative;
+  }
+
+  /* 设置顶部文本样式 */
+  .log-top-text {
+    position: absolute;
+    font-size: 4.07vw;
+    font-weight: 700;
+    color: #fff;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* 设置内容行样式 */
+  .log-content-row1,
+  .log-content-row2,
+  .log-content-row3 {
+    height: 27%;
+    margin: 0 4.07vw 28px 4.07vw;
+    border-radius: 48px;
+    box-shadow: 6px 6px 7px rgba(0, 0, 0, 0.203);
+  }
+
+  /* 设置内容容器样式 */
+  .log-content {
+    margin-top: 2.71vw;
+    height: 47.97vw;
+    overflow: auto;
+  }
+
+  /* 设置日期标题容器样式 */
+  .log-date-title-container {
+    color: white;
+    font-size: 3.22vw;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 2.71vw;
+    margin-left: 1.02vw;
+  }
+
+  /* 设置日期条目容器样式 */
+  .log-date-item-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding-right: 1.36vw;
+    font-family: 'CherryBombOne';
+  }
+
+  /* 设置日期条目样式 */
+  .log-date-item1,
+  .log-date-item2,
+  .log-date-item3,
+  .log-date-inactive {
+    width: 80%;
+    height: 80%;
+    border-radius: 48px;
+    margin-right: 1.53vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4.07vw;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.144);
+  }
+
+  /* 设置日期非活动样式 */
+  .log-date-inactive span {
+    margin-bottom: 2.54vw;
+  }
+
+  /* 设置返回按钮1样式 */
+  #log-return-1 {
+    position: absolute;
+    top: 1.36vw;
+    left: 2.71vw;
+  }
+
+  /* 设置返回按钮2容器样式 */
+  #log-return2-container {
+    position: absolute;
+    width: 6.1vw;
+    height: 6.1vw;
+    top: 1.36vw;
+    right: 2.71vw;
+    z-index: 1000;
+  }
+}
+
+/* 日志容器样式 */
+.log-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* 日志包裹器样式 */
+.log-wrapper {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  box-sizing: border-box;
+  background-color: #FEF6F4;
+  grid-template-rows: 27% 73%;
+}
+
+/* 日志顶部样式 */
+.log-top {
+  display: flex;
+  align-items: end;
+  position: relative;
+}
+
+/* 日志内容行1、2、3样式 */
+.log-content-row1 {
+  background-color: #ACCBFF;
+  display: grid;
+  grid-template-columns: 13.5% 86.5%;
+}
+.log-content-row2 {
+  background-color: #FFCCA8;
+  display: grid;
+  grid-template-columns: 13.5% 86.5%;
+}
+.log-content-row3 {
+  background-color: #79E3CF;
+  display: grid;
+  grid-template-columns: 13.5% 86.5%;
+}
+
+/* 日志日期标题容器样式 */
+.log-date-title-container span {
+  text-align: center;
+}
+
+/* 自定义字体样式 */
+@font-face {
+  font-family: 'CherryBombOne';
+  src: url('/static/ttf/CherryBombOne-Regular.ttf');
+}
+
+/* 日志日期条目1样式 */
+.log-date-item1 {
+  background-color: #75A1EB;
+}
+/* 日志日期条目2样式 */
+.log-date-item2 {
+  background-color: #FFA463;
+}
+/* 日志日期条目3样式 */
+.log-date-item3 {
+  background-color: #17CBA8;
+}
+/* 非活动日期条目样式 */
+.log-date-inactive {
+  background-color: #ffffff80;
+}
+
+/* 分数图标容器样式 */
+.score-icon-container {
+  display: flex;
+}
+
+/* 返回按钮样式 */
+#log-return-1 {
+  position: absolute;
+  top: 1.95vh;
+  left: 3.9vh;
+}
+
+/* 返回按钮2容器样式 */
+#log-return2-container {
+  position: absolute;
+  width: 8.78vh;
+  height: 8.78vh;
+  top: 1.95vh;
+  right: 3.9vh;
+  z-index: 1000;
+}

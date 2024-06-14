@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Dialog</title>
+    <link rel="stylesheet" href="{% static 'css/dialog.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/dialog_Chinese.css' %}"> -->
+</head>
+<body>
+    <style>
+        #home-place {
+            background-image: url("{% static 'img/scenes/04家里/1.png' %}");
+        }
+        #play-place {
+            background-image: url("{% static 'img/scenes/04游乐场/1.png' %}");
+        }
+        #car-place {
+            background-image: url("{% static 'img/scenes/04地铁/1.png' %}");
+        }
+        #school-place {
+            background-image: url("{% static 'img/scenes/04教室/1.png' %}");
+        }
+        #buy-place {
+            background-image: url("{% static 'img/scenes/04超市/1.png' %}");
+        }
+        #eat-place {
+            background-image: url("{% static 'img/scenes/04餐厅/1.png' %}");
+        } 
+    </style>
+          <div class="popup-window-bg">
+            <div class="popup-window">
+              <div class="popup-content">
+                <div class="popup-text">
+                  <!-- Are you sure to return to the home? -->
+                  确定要返回主页面吗？
+                </div>
+                <div class="popup-option">
+                  <a class="popup-option-btn" href="{% url 'dashboard' %}">
+                    <span>
+                      <!-- Yes -->
+                      确定
+                    </span>
+                  </a>
+                  
+                  <span class="popup-option-btn" onclick="cancelPopup()">
+                    <!-- Cancel -->
+                    取消
+                  </span>
+                </div>
+              </div>
+      
+            </div>
+          </div>
+          <div id="checkInput" class="popup-window-bg">
+            <div class="popup-window">
+                <div class="popup-content">
+                  <div class="popup-text">
+                    <!-- Please say something to the character of the story. -->
+                    请对故事主人公说一些话
+                  </div>
+                  <div onclick="checkInput()" id="checkInputBtn" class="popup-option-btn">
+                      <!-- Yes -->
+                      确定
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div id="checkExtend" class="popup-window-bg">
+            <div class="popup-window">
+                <div class="popup-content">
+                  <div class="popup-text">
+                    <!-- Please extend your text input first. -->
+                    请先扩充你的文字输入
+                  </div>
+                  <div class="popup-option">
+                    <span onclick="giveupExtend()" class="popup-cancle-btn">
+                      <!-- Give up -->
+                      放弃扩充
+                    </span>
+                    
+                    <span class="popup-option-btn" id="checkExtendBtn" onclick="checkExtend()">
+                    <!-- Yes -->
+                    确定
+                  </span>
+                  </div>
+                </div>
+              </div>
+          </div>
+
+          <div id="checkEmotion" class="popup-window-bg">
+            <div class="popup-window">
+                <div class="popup-content">
+                  <div class="popup-text">
+                    <!-- Please choose the mood of the character
+                    <br>
+                    in the story. -->
+                    请选择故事主人公的心情
+                  </div>
+                  <div onclick="checkEmotion()" id="checkEmotionBtn" class="popup-option-btn">
+                      <!-- Yes -->
+                      确定
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div id="isExtending" class="popup-window-bg">
+            <div class="popup-window">
+                <div class="popup-content" id="extending-pop">
+                  <div class="popup-text" id="extending-pop-text">
+                      <div>
+                           <!-- Successfully submitted, extending  -->
+                           上传成功！正在扩充中，请稍等
+                      </div>
+                      <!-- <div>
+                          in progress, please wait.
+                      </div> -->
+                   
+                  </div>
+                </div>
+              </div>
+          </div>
+   <button style="display: none;" id="playThinkButton"></button>
+   <audio id="think-audio" controls style="display: none;" src="/tts/think/voice.mp3"></audio>
+   <audio id="reward-audio" controls style="display: none;" src="/tts/reward/reward.mp3"></audio>
+   <div id="tid" style="display: none;">{{tid}}</div>
+
+
+    <div class="container">
+
+      {% csrf_token %}
+        <!-- <img onclick="openPopup()" id="dialog-left-icon" width="72px" src="{% static 'img/home2/左箭头.png' %}" alt="">
+        <img onclick="clickNext()" id="dialog-right-icon" width="72px" src="{% static 'img/home2/右箭头.png' %}" alt=""> -->
+        <div class="wrapper">
+          <div class="dialog">
+            <div class="dialog-top">
+              {% if request.session.place == "家庭" %}
+              <div id="home-place" class="dialog-content">
+                <div id="reward-container">
+                  <img id="reward-img" src="{% static 'img/dialog/reward.png' %}" alt="">
+                  <span id="reward-text">X1</span>
+                </div>
+                <div class="dialog-content-left">
+                  <img src="{{role_path}}" class="role">
+                  <div class="audio-control">
+                    <div onclick="controlAudio()" class="audio-start-container">
+                      <img id="audio-control" name="播放" src="{% static 'img/dialog/播放.svg' %}" alt="">
+                    </div>
+                    <div onclick="replayAudio()" class="audio-replay-container">
+                      <img id="audio-replay" src="{% static 'img/dialog/replay.svg' %}" alt="">
+                    </div>
+                    <div onclick="clickAudioCtrl()" id="audio-control-default">
+                      1.0x
+                    </div>
+                    <div class="audio-control-opt" style="
+                    color: #fff;
+                    ">
+                        <div id="audio-control-opt1">
+                          0.75x
+                        </div>
+                        <div id="audio-control-opt2">
+                          0.5x
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="dialog-content-right">
+                    <span class="gpt-dialog">
+                      <span class="gpt-dialog-inner">
+                        {{ random_word }}
+                      </span>
+                        
+                    </span>
+                    <span class="child-dialog">
+                      <!-- <textarea placeholder="Please enter texts..." onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea> -->
+                      <textarea placeholder="请输入文字......" onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea>
+                      <div class="child-input-control">
+                        <span onclick="playExtend()" style="display: none;" id="play-extend">
+                          <!-- Play -->
+                          播放</span>
+                        <span onclick="submitChildText()" id="extend-input-btn">
+                          <!-- Extend -->
+                          扩充
+                        </span>
+                      </div>
+                    </span>
+                </div>
+              </div>
+              {% elif request.session.place == "娱乐" %}
+              <div id="play-place" class="dialog-content">
+                <div id="reward-container">
+                  <img id="reward-img" src="{% static 'img/dialog/reward.png' %}" alt="">
+                  <span id="reward-text">X1</span>
+                </div>
+                <div class="dialog-content-left">
+                  <img src="{{role_path}}" class="role">
+                  <div class="audio-control">
+                    <div onclick="controlAudio()" class="audio-start-container">
+                      <img id="audio-control" name="播放" src="{% static 'img/dialog/播放.svg' %}" alt="">
+                    </div>
+                    <div onclick="replayAudio()" class="audio-replay-container">
+                      <img id="audio-replay" src="{% static 'img/dialog/replay.svg' %}" alt="">
+                    </div>
+                    <div onclick="clickAudioCtrl()" id="audio-control-default">
+                      1.0x
+                    </div>
+                    <div class="audio-control-opt" style="
+                    color: #fff;
+                    ">
+                        <div id="audio-control-opt1">
+                          0.75x
+                        </div>
+                        <div id="audio-control-opt2">
+                          0.5x
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="dialog-content-right">
+                    <span class="gpt-dialog">
+                      <span class="gpt-dialog-inner">
+                        {{ random_word }}
+                      </span>
+                    </span>
+                    <span class="child-dialog">
+                      <!-- <textarea placeholder="Please enter texts..." onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea> -->
+                      <textarea placeholder="请输入文字......" onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea>
+                      <div class="child-input-control">
+                        <span onclick="playExtend()" style="display: none;" id="play-extend">
+                          <!-- Play -->
+                          播放</span>
+                        <span onclick="submitChildText()" id="extend-input-btn">
+                          <!-- Extend -->
+                          扩充
+                        </span>
+                      </div>
+                  </span>
+                </div>
+              </div>
+              {% elif request.session.place == "交通" %}
+              <div id="car-place" class="dialog-content">
+                <div id="reward-container">
+                  <img id="reward-img" src="{% static 'img/dialog/reward.png' %}" alt="">
+                  <span id="reward-text">X1</span>
+                </div>
+                <div class="dialog-content-left">
+                  <img src="{{role_path}}" class="role">
+                  <div class="audio-control">
+                    <div onclick="controlAudio()" class="audio-start-container">
+                      <img id="audio-control" name="播放" src="{% static 'img/dialog/播放.svg' %}" alt="">
+                    </div>
+                    <div onclick="replayAudio()" class="audio-replay-container">
+                      <img id="audio-replay" src="{% static 'img/dialog/replay.svg' %}" alt="">
+                    </div>
+                    <div onclick="clickAudioCtrl()" id="audio-control-default">
+                      1.0x
+                    </div>
+                    <div class="audio-control-opt" style="
+                    color: #fff;
+                    ">
+                        <div id="audio-control-opt1">
+                          0.75x
+                        </div>
+                        <div id="audio-control-opt2">
+                          0.5x
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="dialog-content-right">
+                    <span class="gpt-dialog">
+                      <span class="gpt-dialog-inner">
+                        {{ random_word }}
+                      </span>
+                    </span>
+                    <span class="child-dialog">
+                      <!-- <textarea placeholder="Please enter texts..." onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea> -->
+                      <textarea placeholder="请输入文字......" onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea>
+                      <div class="child-input-control">
+                        <span onclick="playExtend()" style="display: none;" id="play-extend">
+                          <!-- Play -->
+                          播放</span>
+                        <span onclick="submitChildText()" id="extend-input-btn">
+                          <!-- Extend -->
+                          扩充
+                        </span>
+                      </div>
+                  </span>
+                </div>
+              </div>
+              {% elif request.session.place == "校园" %}
+              <div id="school-place" class="dialog-content">
+                <div id="reward-container">
+                  <img id="reward-img" src="{% static 'img/dialog/reward.png' %}" alt="">
+                  <span id="reward-text">X1</span>
+                </div>
+                <div class="dialog-content-left">
+                  <img src="{{role_path}}" class="role">
+                  <div class="audio-control">
+                    <div onclick="controlAudio()" class="audio-start-container">
+                      <img id="audio-control" name="播放" src="{% static 'img/dialog/播放.svg' %}" alt="">
+                    </div>
+                    <div onclick="replayAudio()" class="audio-replay-container">
+                      <img id="audio-replay" src="{% static 'img/dialog/replay.svg' %}" alt="">
+                    </div>
+                    <div onclick="clickAudioCtrl()" id="audio-control-default">
+                      1.0x
+                    </div>
+                    <div class="audio-control-opt" style="
+                    color: #fff;
+                    ">
+                        <div id="audio-control-opt1">
+                          0.75x
+                        </div>
+                        <div id="audio-control-opt2">
+                          0.5x
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="dialog-content-right">
+                    <span class="gpt-dialog">
+                      <span class="gpt-dialog-inner">
+                        {{ random_word }}
+                      </span>
+                    </span>
+                    <span class="child-dialog">
+                      <!-- <textarea placeholder="Please enter texts..." onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea> -->
+                      <textarea placeholder="请输入文字......" onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea>
+                      <div class="child-input-control">
+                        <span onclick="playExtend()" style="display: none;" id="play-extend">
+                          <!-- Play -->
+                          播放</span>
+                        <span onclick="submitChildText()" id="extend-input-btn">
+                          <!-- Extend -->
+                          扩充
+                        </span>
+                      </div>
+                  </span>
+                </div>
+              </div>
+              {% elif request.session.place == "购物" %}
+              <div id="buy-place" class="dialog-content">
+                <div id="reward-container">
+                  <img id="reward-img" src="{% static 'img/dialog/reward.png' %}" alt="">
+                  <span id="reward-text">X1</span>
+                </div>
+                <div class="dialog-content-left">
+                  <img src="{{role_path}}" class="role">
+                  <div class="audio-control">
+                    <div onclick="controlAudio()" class="audio-start-container">
+                      <img id="audio-control" name="播放" src="{% static 'img/dialog/播放.svg' %}" alt="">
+                    </div>
+                    <div onclick="replayAudio()" class="audio-replay-container">
+                      <img id="audio-replay" src="{% static 'img/dialog/replay.svg' %}" alt="">
+                    </div>
+                    <div onclick="clickAudioCtrl()" id="audio-control-default">
+                      1.0x
+                    </div>
+                    <div class="audio-control-opt" style="
+                    color: #fff;
+                    ">
+                        <div id="audio-control-opt1">
+                          0.75x
+                        </div>
+                        <div id="audio-control-opt2">
+                          0.5x
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="dialog-content-right">
+                    <span class="gpt-dialog">
+                      <span class="gpt-dialog-inner">
+                        {{ random_word }}
+                      </span>
+                    </span>
+                    <span class="child-dialog">
+                      <!-- <textarea placeholder="Please enter texts..." onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea> -->
+                      <textarea placeholder="请输入文字......" onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea>
+                      <div class="child-input-control">
+                        <span onclick="playExtend()" style="display: none;" id="play-extend">
+                          <!-- Play -->
+                          播放</span>
+                        <span onclick="submitChildText()" id="extend-input-btn">
+                          <!-- Extend -->
+                          扩充
+                        </span>
+                      </div>
+                  </span>
+                </div>
+              </div>
+              {% elif request.session.place == "用餐" %}
+              <div id="eat-place" class="dialog-content">
+                <div id="reward-container">
+                  <img id="reward-img" src="{% static 'img/dialog/reward.png' %}" alt="">
+                  <span id="reward-text">X1</span>
+                </div>
+                <div class="dialog-content-left">
+                  <img src="{{role_path}}" class="role">
+                  <div class="audio-control">
+                    <div onclick="controlAudio()" class="audio-start-container">
+                      <img id="audio-control" name="播放" src="{% static 'img/dialog/播放.svg' %}" alt="">
+                    </div>
+                    <div onclick="replayAudio()" class="audio-replay-container">
+                      <img id="audio-replay" src="{% static 'img/dialog/replay.svg' %}" alt="">
+                    </div>
+                    <div onclick="clickAudioCtrl()" id="audio-control-default">
+                      1.0x
+                    </div>
+                    <div class="audio-control-opt" style="
+                    color: #fff;
+                    ">
+                        <div id="audio-control-opt1">
+                          0.75x
+                        </div>
+                        <div id="audio-control-opt2">
+                          0.5x
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="dialog-content-right">
+                    <span class="gpt-dialog">
+                      <span class="gpt-dialog-inner">
+                        {{ random_word }}
+                      </span>
+                    </span>
+                    <span class="child-dialog">
+                      <!-- <textarea placeholder="Please enter texts..." onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea> -->
+                      <textarea placeholder="请输入文字..." onkeydown="hidePlayExtend()" name="" id="child-dialog-text"></textarea>
+                      <div class="child-input-control">
+                        <span onclick="playExtend()" style="display: none;" id="play-extend">
+                          <!-- Play -->
+                          播放</span>
+                        <span onclick="submitChildText()" id="extend-input-btn">
+                          <!-- Extend -->
+                          扩充
+                        </span>
+                      </div>
+                  </span>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+            <div class="dialog-option">
+              {% if tid == 6 %}
+              <div class="dialog-option-left">
+                <img id="complete-img" src="{% static 'img/dialog/complete.png' %}" alt="">
+                <audio style="display: none;" controls="controls" hidden id="dialog-audio"  src="{{ request.session.tts_file }}">123</audio>
+                <audio style="display: none;" controls="controls" hidden id="extend-audio"  src="{{ request.session.extend_file }}">123</audio>
+
+
+              </div>
+              {% elif tid > 4 %}
+              <div class="dialog-option-left">
+                <span class="option-container">
+                  <button onclick="sendMood('开心')" class="option-btn"><img class="emotion-option" id="emotion-option1" src="{{child_avatar}}/喜.png" alt=""></button>
+                  <span class="option-text">
+                    <!-- Happy -->
+                    开心
+                  </span>
+                  <span class="option-bg"></span>
+                </span>
+                <span class="option-container">
+                  <button onclick="sendMood('生气')" class="option-btn"><img class="emotion-option" src="{{child_avatar}}/怒.png" alt=""></button>
+                  <span class="option-text">
+                    <!-- Angry -->
+                    生气
+                  </span>
+                  <span class="option-bg"></span>
+                </span>
+                <span class="option-container">
+                  <button onclick="sendMood('难过')" class="option-btn"><img class="emotion-option" src="{{child_avatar}}/哀.png" alt=""></button>
+                  <span class="option-text">
+                    <!-- Sad -->
+                    难过
+                  </span>
+                  <span class="option-bg"></span>
+                </span>
+                <span class="option-container">
+                  <button onclick="sendMood('害怕')" class="option-btn"><img class="emotion-option" src="{{child_avatar}}/惧.png" alt=""></button>
+                  <span class="option-text">
+                    <!-- Scared -->
+                    害怕  
+                  </span>
+                  <span class="option-bg"></span>
+                </span>
+                <audio style="display: none;" controls="controls" hidden id="dialog-audio"  src="{{ request.session.tts_file }}">123</audio>
+                <audio style="display: none;" controls="controls" hidden id="extend-audio"  src="{{ request.session.extend_file }}">123</audio>
+
+              </div>
+              {% else %}
+              <div class="dialog-option-left">
+                <span class="option-container">
+                  <button onclick="sendMood('开心')" class="option-btn"><img style="background-color: transparent;" class="emotion-option" id="emotion-option1" src="{%static 'img/home1/喜悦.png' %}" alt=""></button>
+                  <span class="option-text">
+                    <!-- Happy -->
+                    开心
+                  </span>
+                  <span class="option-bg"></span>
+                </span>
+                <span class="option-container">
+                  <button onclick="sendMood('生气')" class="option-btn"><img style="background-color: transparent;" class="emotion-option" src="{%static 'img/home1/愤怒.png' %}" alt=""></button>
+                  <span class="option-text">
+                    <!-- Angry -->
+                    生气
+                  </span>
+                  <span class="option-bg"></span>
+                </span>
+                <span class="option-container">
+                  <button onclick="sendMood('难过')" class="option-btn"><img style="background-color: transparent;" class="emotion-option" src="{%static 'img/home1/难过.png' %}" alt=""></button>
+                  <span class="option-text">
+                    <!-- Sad -->
+                    难过
+                  </span>
+                  <span class="option-bg"></span>
+                </span>
+                <span class="option-container">
+                  <button onclick="sendMood('害怕')" class="option-btn"><img style="background-color: transparent;" class="emotion-option" src="{%static 'img/home1/害怕.png' %}" alt=""></button>
+                  <span class="option-text">
+                    <!-- Scared -->
+                    害怕
+                  </span>
+                  <span class="option-bg"></span>
+                </span>
+                <audio style="display: none;" controls="controls" hidden id="dialog-audio"  src="{{ request.session.tts_file }}">123</audio>
+                <audio style="display: none;" controls="controls" hidden id="extend-audio"  src="{{ request.session.extend_file }}">123</audio>
+              </div>
+              {% endif %}
+
+              <div class="dialog-option-right">
+                <div class="dialog-option-right-container">
+                  <span onclick="clickNext()" class="dialog-option-right-btn">
+                    <img width="40%" src="{% static 'img/dialog/下一步.svg' %}" alt="">
+                  </span>
+                  <span>
+                    <!-- Next -->
+                    下一步
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        let mediaRecorder; // 声明媒体录制器变量
+        let chunks = []; // 存储录制音频的数据块数组
+        let statusElement = document.getElementById('status'); // 获取状态元素
+        let sendTextBtn = document.getElementById('send-user-word'); // 获取发送文本按钮
+        let audioOpt1 = document.getElementById('audio-control-opt1'); // 获取音频控制选项1
+        let audioOpt2 = document.getElementById('audio-control-opt2'); // 获取音频控制选项2
+        let isTextExtend = false; // 是否文本扩展标志位
+        let isEmotionChosen = false; // 是否选择情绪标志位
+        let tid = parseInt(document.getElementById('tid').innerText); // 获取任务ID
+        let isAnsTrue = 0; // 是否答案正确标志位
+    
+        // 监听音频控制选项点击事件
+        audioOpt1.addEventListener('click', clickAudioOpt, this);
+        audioOpt2.addEventListener('click', clickAudioOpt, this);
+    
+        // 隐藏播放扩展按钮函数
+        function hidePlayExtend() {
+            let extendAudioBtn = document.getElementById('play-extend'); // 获取播放扩展按钮
+            extendAudioBtn.style.display = 'none'; // 隐藏播放扩展按钮
+            console.log("123123123"); // 输出调试信息
+        }
+    
+        // 显示正在扩展状态函数
+        function showIsExtending() {
+            let isExtending = document.getElementById('isExtending'); // 获取正在扩展元素
+            isExtending.style.display = 'flex'; // 显示正在扩展元素
+        }
+    
+        // 关闭正在扩展状态函数
+        function closeIsExtending() {
+            let isExtending = document.getElementById('isExtending'); // 获取正在扩展元素
+            isExtending.style.display = 'none'; // 隐藏正在扩展元素
+        }
+    
+        // 检查输入函数
+        function checkInput() {
+            let checkInput = document.getElementById('checkInput'); // 获取检查输入元素
+            checkInput.style.display = 'none'; // 隐藏检查输入元素
+        }
+    
+        // 检查情绪函数
+        function checkEmotion() {
+            let checkEmotion = document.getElementById('checkEmotion'); // 获取检查情绪元素
+            checkEmotion.style.display = 'none'; // 隐藏检查情绪元素
+        }
+    
+        // 检查扩展函数
+        function checkExtend() {
+            let checkExtend = document.getElementById('checkExtend'); // 获取检查扩展元素
+            checkExtend.style.display = 'none'; // 隐藏检查扩展元素
+        }
+    
+        // 播放扩展音频函数
+        function playExtend() {
+            let extendAudio = document.getElementById('extend-audio'); // 获取扩展音频元素
+            extendAudio.play(); // 播放扩展音频
+            let audio = document.getElementById('dialog-audio'); // 获取对话音频元素
+            let container = document.getElementsByClassName('audio-start-container')[0]; // 获取音频播放器容器
+            audio.pause(); // 暂停对话音频
+            console.log('暂停'); // 输出调试信息
+            container.innerHTML = `<img width="40px" id="audio-control" name="播放" src="{% static 'img/dialog/播放.svg' %}" alt="">`; // 修改播放按钮图标
+        }
+    
+        // 刷新音频速度函数
+        function refreshAudioSpeed() {
+            let defaultSpeed = document.getElementById('audio-control-default'); // 获取默认音频速度元素
+            let speed1 = document.getElementById('audio-control-opt1'); // 获取音频速度选项1元素
+            let speed2 = document.getElementById('audio-control-opt2'); // 获取音频速度选项2元素
+            defaultSpeed.innerText = "1.0x"; // 设置默认音频速度文本
+            speed1.innerText = "0.75x"; // 设置音频速度选项1文本
+            speed2.innerText = "0.5x"; // 设置音频速度选项2文本
+        }
+    
+        // 控制音频播放函数
+        function controlAudio() {
+            let audio = document.getElementById('dialog-audio'); // 获取对话音频元素
+            let val = document.getElementById('audio-control').name; // 获取播放控制按钮名称
+            let container = document.getElementsByClassName('audio-start-container')[0]; // 获取音频播放器容器
+            let extendAudio = document.getElementById('extend-audio'); // 获取扩展音频元素
+    
+            switch (val) { // 根据按钮名称执行操作
+                case "播放":
+                    extendAudio.pause(); // 暂停扩展音频
+                    audio.play(); // 播放对话音频
+                    console.log('播放'); // 输出调试信息
+                    container.innerHTML = `<img width="40px" id="audio-control" name="暂停" src="{% static 'img/dialog/暂停.svg' %}" alt="">`; // 修改播放按钮图标
+                    break;
+                case "暂停":
+                    audio.pause(); // 暂停对话音频
+                    console.log('暂停'); // 输出调试信息
+                    container.innerHTML = `<img width="40px" id="audio-control" name="播放" src="{% static 'img/dialog/播放.svg' %}" alt="">`; // 修改播放按钮图标
+                default:
+                    break;
+            }
+        }
+    
+        // 重新播放音频函数
+        function replayAudio() {
+            refreshAudioSpeed(); // 刷新音频速度
+            let audio = document.getElementById('dialog-audio'); // 获取对话音频元素
+            let container = document.getElementsByClassName('audio-start-container')[0]; // 获取音频播放器容器
+            container.innerHTML = `<img width="40px" id="audio-control" name="暂停" src="{% static 'img/dialog/暂停.svg' %}" alt="">`; // 修改播放按钮图标
+            audio.load(); // 重新加载音频
+            audio.play(); // 播放音频
+        }
+    
+        // 点击音频控制选项函数
+        function clickAudioOpt(ev) {
+            let audioCtrlDefault = document.getElementById('audio-control-default'); // 获取音频控制默认选项元素
+            let temp = audioCtrlDefault.innerText; // 临时存储默认选项文本
+            audioCtrlDefault.innerText = ev.target.innerText; // 修改默认选项文本为点击选项文本
+            ev.target.innerText = temp; // 修改点击选项文本为原默认选项文本
+            let audio = document.getElementById('dialog-audio') // 获取对话音频元素
+            audio.playbackRate = parseFloat(audioCtrlDefault.innerText) // 设置音频播放速度
+            let AudioCtrl = document.getElementsByClassName('audio-control-opt')[0]; // 获取音频控制选项容器元素
+            AudioCtrl.style.display = 'none'; // 隐藏音频控制选项容器
+        }
+    
+        // 点击音频控制按钮函数
+        function clickAudioCtrl() {
+            let AudioCtrl = document.getElementsByClassName('audio-control-opt')[0]; // 获取音频控制选项容器元素
+            if(AudioCtrl.style.display === 'none')
+                AudioCtrl.style.display = 'block'; // 显示音频控制选项容器
+            else
+                AudioCtrl.style.display = 'none'; // 隐藏音频控制选项容器
+        }
+    
+        // 放弃扩展函数
+        function giveupExtend() {
+            checkExtend(); // 检查扩展
+            let user_words = document.getElementById("child-dialog-text").value; // 获取用户文本
+            fetch('/upload_child_input/', { // 向服务器上传用户文本
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+                body: JSON.stringify({ 'user_words': user_words }),
+            }).then(response => response.json())
+                .then(data => {
+                    const user_words = data.user_words; // 获取服务器返回的用户文本
+                    console.log(user_words); // 输出用户文本
+                    let childDialog = document.getElementById('child-dialog-text'); // 获取用户文本输入框元素
+                    childDialog.value = user_words; // 设置用户文本输入框值为服务器返回的用户文本
+                    if(isAnsTrue === 1 && tid >= 2 && tid <= 4) { // 如果答案正确且任务ID在指定范围内
+                        let dialogContent1 = document.getElementsByClassName('dialog-content-left')[0]; // 获取对话内容左边元素
+                        let dialogContent2 = document.getElementsByClassName('dialog-content-right')[0]; // 获取对话内容右边元素
+                        dialogContent1.style.display = 'none'; // 隐藏对话内容左边元素
+                        dialogContent2.style.display = 'none'; // 隐藏对话内容右边元素
+                        let rewardContainer = document.getElementById('reward-container'); // 获取奖励容器元素
+                        rewardContainer.style.display = 'block'; // 显示奖励容器元素
+                        let rewardAudio = document.getElementById('reward-audio'); // 获取奖励音频元素
+                        rewardAudio.play(); // 播放奖励音频
+                    }
+                    let playThinkButton = document.getElementById('playThinkButton'); // 获取播放思考音频按钮元素
+                    let thinkAudio = document.getElementById('think-audio'); // 获取思考音频元素
+                    let audio = document.getElementById('dialog-audio'); // 获取对话音频元素
+                    audio.pause(); // 暂停对话音频
+                    thinkAudio.play(); // 播放思考音频
+                    playThinkButton.click(); // 模拟点击播放思考音频按钮
+                    window.location.reload(); // 重新加载页面
+                })
+        }
+    
+        // 点击下一步函数
+        function clickNext() {
+            let childInput = document.getElementById('child-dialog-text').value; // 获取用户文本输入框值
+            if(childInput == "" && tid <= 5) { // 如果用户文本输入框值为空且任务ID小于等于5
+                let checkInput = document.getElementById('checkInput'); // 获取检查输入元素
+                checkInput.style.display = "flex"; // 显示检查输入元素
+            } else {
+                if(!isEmotionChosen && tid >=2  && tid <=5) { // 如果情绪未选择且任务ID在指定范围内
+                    let checkEmotion = document.getElementById('checkEmotion'); // 获取检查情绪元素
+                    checkEmotion.style.display = "flex"; // 显示检查情绪元素
+                } else {
+                    if(!isTextExtend && tid <= 5) { // 如果文本未扩展且任务ID小于等于5
+                        let checkExtend = document.getElementById('checkExtend'); // 获取检查扩展元素
+                        checkExtend.style.display = "flex"; // 显示检查扩展元素
+                    } else { // 否则
+                        if(isAnsTrue === 1 && tid >= 2 && tid <= 4) { // 如果答案正确且任务ID在指定范围内
+                            let dialogContent1 = document.getElementsByClassName('dialog-content-left')[0]; // 获取对话内容左边元素
+                            let dialogContent2 = document.getElementsByClassName('dialog-content-right')[0]; // 获取对话内容右边元素
+                            dialogContent1.style.display = 'none'; // 隐藏对话内容左边元素
+                            dialogContent2.style.display = 'none'; // 隐藏对话内容右边元素
+                            let rewardContainer = document.getElementById('reward-container'); // 获取奖励容器元素
+                            rewardContainer.style.display = 'block'; // 显示奖励容器元素
+                            let rewardAudio = document.getElementById('reward-audio'); // 获取奖励音频元素
+                            rewardAudio.play(); // 播放奖励音频
+                        }
+                        let playThinkButton = document.getElementById('playThinkButton'); // 获取播放思考音频按钮元素
+                        let thinkAudio = document.getElementById('think-audio'); // 获取思考音频元素
+                        let audio = document.getElementById('dialog-audio'); // 获取对话音频元素
+                        audio.pause(); // 暂停对话音频
+                        thinkAudio.play(); // 播放思考音频
+                        playThinkButton.click(); // 模拟点击播放思考音频按钮
+                        window.location.reload(); // 重新加载页面
+                    }
+                }
+            }
+        }
+    
+        // 提交用户文本函数
+        function submitChildText() {
+            let user_words = document.getElementById("child-dialog-text").value; // 获取用户文本
+            showIsExtending(); // 显示正在扩展状态
+            fetch('/upload_audio/', { // 向服务器上传音频
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+                body: JSON.stringify({ 'user_words': user_words }),
+            }).then(response => response.json())
+                .then(data => {
+                    closeIsExtending(); // 关闭正在扩展状态
+                    isTextExtend = true; // 标记文本已扩展
+                    const user_words = data.user_words; // 获取服务器返回的用户文本
+                    console.log(user_words); // 输出用户文本
+                    let childDialog = document.getElementById('child-dialog-text'); // 获取用户文本输入框元素
+                    let extendAudio = document.getElementById('extend-audio'); // 获取扩展音频元素
+                    let playExtendAudioBtn = document.getElementById('play-extend'); // 获取播放扩展音频按钮元素
+                    playExtendAudioBtn.style.display = 'inline'; // 显示播放扩展音频按钮元素
+                    extendAudio.src = data.extend_file; // 设置扩展音频源
+                    childDialog.value = user_words; // 设置用户文本输入框值为服务器返回的用户文本
+            }).catch(function (error) {
+                closeIsExtending(); // 关闭正在扩展状态
+            });
+        }
+    
+        // 开始录制函数
+        function startRecording() {
+            navigator.mediaDevices.getUserMedia({ audio: true }) // 获取用户媒体设备（音频）
+                .then(function (stream) {
+                    mediaRecorder = new MediaRecorder(stream,{ mimeType: "audio/webm" }); // 创建媒体录制器
+                    mediaRecorder.ondataavailable = function (e) { // 在录制过程中
+                        chunks.push(e.data); // 存储音频数据块
+                    };
+                    mediaRecorder.onstop = function () { // 录制停止时
+                        statusElement.textContent = '录音已停止，准备上传...'; // 设置状态信息
+                        setTimeout(uploadAudio, 500); // 延迟上传音频
+                    };
+                    mediaRecorder.startTime = Date.now(); // 记录录制开始时间
+                    mediaRecorder.start(); // 启动录制
+                    statusElement.textContent = '录音中...'; // 设置状态信息
+                })
+                .catch(function (error) { // 获取用户媒体设备失败时
+                    statusElement.textContent = '无法访问麦克风：' + error.message; // 设置状态信息
+                });
+        }
+    
+        // 停止录制函数
+        function stopRecording() {
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') { // 如果媒体录制器存在且状态不为停止
+                mediaRecorder.stop(); // 停止录制
+                mediaRecorder.stopTime = Date.now(); // 记录录制停止时间
+                // 停止流并释放媒体录制器资源
+                let stream = mediaRecorder.stream; // 获取媒体流
+                let tracks = stream.getTracks(); // 获取轨道
+                tracks.forEach(function (track) {
+                    track.stop(); // 停止轨道
+                });
+                mediaRecorder = null; // 重置媒体录制器
+            }
+        }
+    
+        // 上传音频函数
+        function uploadAudio() {
+            if (chunks.length > 0) { // 如果存在录制的音频数据块
+                let blob = new Blob(chunks, { type: 'audio/webm' }); // 创建音频数据块的 Blob 对象
+                let formData = new FormData(); // 创建 FormData 对象
+                formData.append('audio_file', blob, 'recording.webm'); // 添加音频文件到 FormData 中
+                fetch('/upload_audio/', { // 向服务器上传音频
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'X-CSRFToken': getCookie('csrftoken') },
+                }).then(response => response.json())
+                    .then(data => {
+                        const user_words = data.user_words; // 获取服务器返回的用户文本
+                        console.log(user_words); // 输出用户文本
+                        let childDialog = document.getElementsByClassName('child-dialog')[0]; // 获取用户对话元素
+                        childDialog.innerText = user_words; // 设置用户对话文本为服务器返回的用户文本
+                    });
+            }
+        }
+    
+        // 获取 Cookie 函数
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') { // 如果存在 Cookie 并且不为空
+                let cookies = document.cookie.split(';'); // 分割 Cookie 字符串
+                for (let i = 0; i < cookies.length; i++) {
+                    let cookie = cookies[i].trim(); // 去除 Cookie 字符串两端的空格
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1)); // 解码 Cookie 值
+                        break;
+                    }
+                }
+            }
+            return cookieValue; // 返回 Cookie 值
+        }
+    
+        // 查找其他按钮函数
+        function findOtherBtn(emo) {
+            switch (emo) { // 根据情绪返回其他按钮索引数组
+                case "开心":
+                    return[0,1,2,3]
+                    break;
+                case "生气":
+                    return[1,0,2,3]
+                    break;
+                case "难过":
+                    return[2,0,1,3]
+                    break;
+                case "害怕":
+                    return[3,0,1,2]
+                    break;
+                default:
+                    break;
+            }
+        }
+    
+        // 修改其他情绪按钮函数
+        function changeOtherEmo(vals) {
+            let optionBtn = document.getElementsByClassName('option-btn')[vals[0]]; // 获取第一个情绪按钮元素
+            let optionBg = document.getElementsByClassName('option-bg')[vals[0]]; // 获取第一个情绪按钮背景元素
+            let optionBtn1 = document.getElementsByClassName('option-btn')[vals[1]]; // 获取第二个情绪按钮元素
+            let optionBg1 = document.getElementsByClassName('option-bg')[vals[1]]; // 获取第二个情绪按钮背景元素
+            let optionBtn2 = document.getElementsByClassName('option-btn')[vals[2]]; // 获取第三个情绪按钮元素
+            let optionBg2 = document.getElementsByClassName('option-bg')[vals[2]]; // 获取第三个情绪按钮背景元素
+            let optionBtn3 = document.getElementsByClassName('option-btn')[vals[3]]; // 获取第四个情绪按钮元素
+            let optionBg3 = document.getElementsByClassName('option-bg')[vals[3]]; // 获取第四个情绪按钮背景元素
+            optionBtn.style.filter = ""; // 清除第一个情绪按钮的滤镜效果
+            optionBg.style.filter = ""; // 清除第一个情绪按钮背景的滤镜效果
+            optionBtn1.style.filter = "brightness(.6)"; // 设置第二个情绪按钮的滤镜效果
+            optionBg1.style.filter = "brightness(.6)"; // 设置第二个情绪按钮背景的滤镜效果
+            optionBtn2.style.filter = "brightness(.6)"; // 设置第三个情绪按钮的滤镜效果
+            optionBg2.style.filter = "brightness(.6)"; // 设置第三个情绪按钮背景的滤镜效果
+            optionBtn3.style.filter = "brightness(.6)"; // 设置第四个情绪按钮的滤镜效果
+            optionBg3.style.filter = "brightness(.6)"; // 设置第四个情绪按钮背景的滤镜效果
+        }
+    
+        // 选择情绪函数
+        function selectEmotion(ev) {
+            isEmotionChosen = true; // 标记情绪已选择
+            let dialogContent1 = document.getElementsByClassName('dialog-content-left')[0]; // 获取对话内容左边元素
+            let dialogContent2 = document.getElementsByClassName('dialog-content-right')[0]; // 获取对话内容右边元素
+            dialogContent1.style.display = 'none'; // 隐藏对话内容左边元素
+            dialogContent2.style.display = 'none'; // 隐藏对话内容右边元素
+            let rewardContainer = document.getElementById('reward-container'); // 获取奖励容器元素
+            rewardContainer.style.display = 'block'; // 显示奖励容器元素
+            let rewardAudio = document.getElementById('reward-audio'); // 获取奖励音频元素
+            rewardAudio.play(); // 播放奖励音频
+            let playThinkButton = document.getElementById('playThinkButton'); // 获取播放思考音频按钮元素
+            let thinkAudio = document.getElementById('think-audio'); // 获取思考音频元素
+            let audio = document.getElementById('dialog-audio'); // 获取对话音频元素
+            audio.pause(); // 暂停对话音频
+            thinkAudio.play(); // 播放思考音频
+            playThinkButton.click(); // 模拟点击播放思考音频按钮
+            let tid = parseInt(document.getElementById('tid').innerText); // 获取任务ID
+            if(tid <= 5) { // 如果任务ID小于等于5
+                let choiceText = ev.target.innerText; // 获取点击按钮的文本
+                let choiceIndex = parseInt(ev.target.getAttribute('index')); // 获取点击按钮的索引
+                let otherBtnIndex = findOtherBtn(choiceText); // 查找其他情绪按钮索引数组
+                changeOtherEmo(otherBtnIndex); // 修改其他情绪按钮
+                let dialogContent1 = document.getElementsByClassName('dialog-content-left')[0]; // 获取对话内容左边元素
+                let dialogContent2 = document.getElementsByClassName('dialog-content-right')[0]; // 获取对话内容右边元素
+                dialogContent1.style.display = 'none'; // 隐藏对话内容左边元素
+                dialogContent2.style.display = 'none'; // 隐藏对话内容右边元素
+                let rewardContainer = document.getElementById('reward-container'); // 获取奖励容器元素
+                rewardContainer.style.display = 'block'; // 显示奖励容器元素
+                let rewardAudio = document.getElementById('reward-audio'); // 获取奖励音频元素
+                rewardAudio.play(); // 播放奖励音频
+                let playThinkButton = document.getElementById('playThinkButton'); // 获取播放思考音频按钮元素
+                let thinkAudio = document.getElementById('think-audio'); // 获取思考音频元素
+                let audio = document.getElementById('dialog-audio'); // 获取对话音频元素
+                audio.pause(); // 暂停对话音频
+                thinkAudio.play(); // 播放思考音频
+                playThinkButton.click(); // 模拟点击播放思考音频按钮
+                setTimeout(() => { // 延迟执行
+                    let emotionChoiceText = document.getElementsByClassName('emotion-choice-text')[0]; // 获取情绪选择文本元素
+                    emotionChoiceText.innerText = choiceText; // 设置情绪选择文本为点击按钮文本
+                }, 2000);
+            }
+        }
+    
+        // 页面加载完成时执行函数
+        window.onload = function() {
+            let optionBtn = document.getElementsByClassName('option-btn'); // 获取情绪选择按钮数组
+            for(let i=0;i<optionBtn.length;i++) { // 遍历情绪选择按钮数组
+                optionBtn[i].addEventListener('click', selectEmotion, false); // 添加点击事件监听器
+            }
+        }
+    </script>
+    
+</body>
+</html>
+
+
+
+

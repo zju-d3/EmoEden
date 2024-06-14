@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>统计</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/statistics.css' %}">
+</head>
+<body>
+    <div class="stat-container">
+        <div class="stat-wrapper">
+            <div class="stat-title">
+                <span class="stat-title-text">数据统计</span>
+            </div>
+            <div class="stat-content">
+
+
+                    {% for row in data %}
+                        {% if forloop.counter > 1 %}
+                            <div class="info-row">
+                                {% for row_item in row %}
+                                <div class="info-item">
+                                    {% for item in row_item %}
+                                        <div>{{item}}</div>
+                                    {% endfor %}
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                        <div class="info-row">
+                            {% for row_item in row %}
+                            <div class="info-item">{{row_item}}</div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                        
+                
+            </div>
+            <div class="story-info">
+                {% for user_story_info in story_data %}
+                <div>
+                    <div class="user-name">{{user_story_info.user}}</div>
+                    <div class="date-info">
+                        {% for date_info in user_story_info.dateList %}
+                        <div class="date-col">
+                            <div class="date">{{date_info.date}}</div>
+                            <div class="place-col">
+                                {% for place_info in date_info.placeList %}
+                                <div class="place-item">
+                                    <div style="font-weight: 700; font-size: 20px;">{{place_info.place}}</div>
+                                    <div class="story1">
+                                        <div class="story-title">第一段故事：</div>
+                                        <div>{{place_info.storyList.story_p1}}</div>
+                                        <div id="answer1" class="story-title">第一段故事回答：</div>
+                                        <div>{{place_info.storyList.q1_init}}</div>
+                                        <div class="story-title">第一段故事回答扩充：</div>
+                                        <div>{{place_info.storyList.q1_answer}}</div>
+                                        <!--<div class="story-title">第一段故事GPT回应：</div>-->
+                                        <!--<div>{{place_info.storyList.gpt_1}}</div>-->
+
+                                    </div>
+                                    <div class="story2">
+                                        <div class="story-title">第二段故事：</div>
+                                        <div>{{place_info.storyList.story_p2}}</div>
+                                        <div id="answer2" class="story-title">第二段故事回答：</div>
+                                        <div>{{place_info.storyList.q2_init}}</div>
+                                        <div class="story-title">第二段故事回答扩充：</div>
+                                        <div>{{place_info.storyList.q2_answer}}</div>
+                                        <div class="story-title">第二段故事GPT回应：</div>
+                                        <div>{{place_info.storyList.gpt_1}}</div>
+                                    </div>
+                                    <div class="story3">
+                                        <div class="story-title">第三段故事：</div>
+                                        <div>{{place_info.storyList.story_p3}}</div>
+                                        <div id="answer3" class="story-title">第三段故事回答：</div>
+                                        <div>{{place_info.storyList.q3_init}}</div>
+                                        <div class="story-title">第三段故事回答扩充：</div>
+                                        <div>{{place_info.storyList.q3_answer}}</div>
+                                        <div class="story-title">第三段故事GPT回应：</div>
+                                        <div>{{place_info.storyList.gpt_2}}</div>
+                                    </div>
+                                    <div class="summary">
+                                        <div class="story-title">第四段故事：</div>
+                                        <div>{{place_info.storyList.story_p4}}</div>
+                                        <div id="answer4" class="story-title">第四段故事总结：</div>
+                                        <div>{{place_info.storyList.summary_init}}</div>
+                                        <div class="story-title">第四段故事总结扩充：</div>
+                                        <div>{{place_info.storyList.summary}}</div>
+                                         <div class="story-title">第四段故事gpt回应：</div>
+                                        <div>{{place_info.storyList.gpt_sum}}</div>
+                                        <!-- <div class="story-title">最近的遭遇</div>
+                                        <div>{{place_info.storyList.recent}}</div> -->
+                                    </div>
+
+                                </div>
+
+                                {% endfor %}
+                            </div>
+
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+                {% endfor %}
+            </div>
+            <div class="chart">
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

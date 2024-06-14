@@ -1,0 +1,288 @@
+body {
+  margin: 0 auto;
+}
+body {
+  position: relative;
+}
+@media (min-aspect-ratio: 118/82) {
+  body {
+    margin: 0px auto;
+    height: 100vh;
+    width: 144vh;
+  }
+  #wrapper-3 {
+    width: 100%;
+    height: 100%;
+    display: none;
+    grid-template-columns: 50% 50%;
+    padding: 16.1vh 4.88vh 9.02vh 6.83vh;
+    box-sizing: border-box;
+  }
+  
+  .home3-left-col {
+    margin-right: 6.34vh;
+  
+  }
+  
+  .home3-left-col-inner {
+    background-color: #F8B860;
+    border-radius: 40px;
+    width: 100%;
+    height: 100%;
+    box-shadow:  4px 4px 5px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-rows: 82% 18%;
+  }
+  
+  .home3-role {
+    background-color: #fff;
+    width: 85%;
+    height: 92%;
+    justify-self: center;
+    align-self: self-end;
+    border-radius: 40px;
+    /* background-image: url("./img/roles/1红毛猫/红毛猫.png"); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .home3-role-name {
+    width: 85%;
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.22vh;
+  }
+  .home3-role-name-input-text {
+    font-size: 3.9vh;
+    color: white;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+  .home3-role-name-input {
+    font-size: 2.44vh;
+    border-radius: 40px;
+    width: 72%;
+    padding: 0 1.95vh;
+    box-shadow:  2px 2px 5px rgba(0, 0, 0, 0.174);
+  }
+  .home3-role-name-input::placeholder {
+    color: #A8A8A8;
+    font-family: 'Microsoft YaHei';
+  }
+  
+  .home3-right-col {
+    display: grid;
+    grid-template-rows: repeat(3, 33.33%);
+    margin-left: 1.46vh;
+  }
+  
+  .home3-right-col div {
+    border-radius: 6.83vh;
+  }
+  
+  .role-config-1 {
+    margin: 0 0 3.66vh 0;
+    background-color: #FFAE74;
+  }
+  
+  .role-config-2 {
+    margin: 1.83vh 0 1.83vh 0;
+    background-color: #36AB95;
+  }
+  
+  .role-config-3 {
+    margin: 3.66vh 0 0 0;
+    background-color: #7D72C1;
+  }
+  
+  .home3-config-text-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .role-config {
+    display: grid;
+    grid-template-columns: 10% 90%;
+    box-shadow:  1px 4px 5px rgba(0, 0, 0, 0.174);
+    
+  }
+  .home3-config-icon-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .home3-config-icon {
+    width: 13.9vh;
+  }
+  .role-config-text {
+    writing-mode: vertical-rl;
+    color: #fff;
+    font-size: 3.41vh;
+    font-weight: 700;
+    font-family: 'Microsoft Ya Hei';
+    letter-spacing: 10px;
+    margin-left: 2.44vh;
+  }
+  
+  #confirm {
+    position: absolute;
+    width: 8.78vh;
+    top: 1.46vh;
+    right: 3.9vh;
+  }
+  
+  #home3-return-1 {
+    position: absolute;
+    width: 8.78vh;
+    top: 1.46vh;
+    left: 6.83vh;
+  
+  }
+}
+
+
+@media (max-aspect-ratio: 118/82) {
+  body {
+    height: 69.49vw;
+    width: 100vw;
+  }
+  #wrapper-3 {
+    width: 100%;
+    height: 100%;
+    display: none;
+    grid-template-columns: 50% 50%;
+    padding: 11.19vw 3.39vw 6.27vw 4.75vw;
+    box-sizing: border-box;
+  }
+  
+  .home3-left-col {
+    margin-right: 4.41vw;
+  
+  }
+  
+  .home3-left-col-inner {
+    background-color: #F8B860;
+    border-radius: 40px;
+    width: 100%;
+    height: 100%;
+    box-shadow:  4px 4px 5px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-rows: 82% 18%;
+  }
+  
+  .home3-role {
+    background-color: #fff;
+    width: 85%;
+    height: 92%;
+    justify-self: center;
+    align-self: self-end;
+    border-radius: 40px;
+    /* background-image: url("./img/roles/1红毛猫/红毛猫.png"); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .home3-role-name {
+    width: 85%;
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.85vw;
+  }
+  .home3-role-name-input-text {
+    font-size: 2.71vw;
+    color: white;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+  .home3-role-name-input {
+    font-size: 1.69vw;
+    border-radius: 40px;
+    width: 72%;
+    padding: 0 1.36vw;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.174);
+  }
+  .home3-role-name-input::placeholder {
+    color: #A8A8A8;
+    font-family: 'Microsoft YaHei';
+  }
+  
+  .home3-right-col {
+    display: grid;
+    grid-template-rows: repeat(3, 33.33%);
+    margin-left: 1.02vw;
+  }
+  
+  .home3-right-col div {
+    border-radius: 56px;
+  }
+  
+  .role-config-1 {
+    margin: 0 0 2.54vw 0;
+    background-color: #FFAE74;
+  }
+  
+  .role-config-2 {
+    margin: 1.27vw 0 1.27vw 0;
+    background-color: #36AB95;
+  }
+  
+  .role-config-3 {
+    margin: 2.54vw 0 0 0;
+    background-color: #7D72C1;
+  }
+  
+  .home3-config-text-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .role-config {
+    display: grid;
+    grid-template-columns: 10% 90%;
+    box-shadow:  1px 4px 5px rgba(0, 0, 0, 0.174);
+    
+  }
+  .home3-config-icon-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .home3-config-icon {
+    width: 9.66vw;
+  }
+
+  .role-config-text {
+    writing-mode: vertical-rl;
+    color: #fff;
+    font-size: 2.37vw;
+    font-weight: 700;
+    font-family: 'Microsoft Ya Hei';
+    letter-spacing: 10px;
+    margin-left: 1.69vw;
+  }
+  
+  #confirm {
+    position: absolute;
+    width: 6.1vw;
+    top: 1.02vw;
+    right: 2.71vw;
+  }
+  
+  #home3-return-1 {
+    position: absolute;
+    width: 6.1vw;
+    top: 1.02vw;
+    left: 4.75vw;
+  
+  }
+}

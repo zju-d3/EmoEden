@@ -1,0 +1,227 @@
+input {
+  outline: 0;
+  border: 0;
+  
+}
+#wrapper-2 {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  padding: 110px 92px 72px 92px;
+  box-sizing: border-box;
+  background-color: #FEF6F4;
+}
+.home2-left-col {
+  display: grid;
+  grid-template-rows: 73% 27%;
+  margin-right: 48px;
+}
+.home2-left-col-top {
+  background-color: #FFA86A;
+  border-radius: 10%;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.home2-left-col-bottom {
+  background-color: #f1f1f1;
+  border-radius: 40px;
+  margin-top: 12px;
+}
+.home2-portrait {
+  margin-top: 52px;
+  display: inline-block;
+  width: 132px;
+  height: 132px;
+  border-radius: 100%;
+  z-index: 10;
+}
+#create-role-icon {
+  margin-top: 14px;
+  margin-left: 6px;
+
+}
+#create-role-btn {
+  background-color: #8885DE;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+}
+#create-role-btn:active {
+  filter: brightness(80%)
+}
+#create-role-text {
+  display: flex;
+  align-items: center;
+}
+.create-role-text-container {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.create-role-text-top {
+  display: inline-block;
+  color: #fff;
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.create-role-text-bottom {
+  display: inline-block;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+
+}
+
+.home-2-basic-info-wrapper {
+  color: #7A7774;
+  margin-top: 80px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: repeat(3, 68px);
+}
+.home-2-basic-info-text {
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+}
+.home-2-basic-info-left-text {
+  margin-left: 44px;
+}
+.home2-basic-info {
+  background-color: #FDF5E0;
+  width: 380px;
+  height: 300px;
+  position: absolute;
+  z-index: 1;
+  bottom: 40px;
+  border-radius: 28px;
+}
+.home2-basic-info-input {
+  font-size: 20px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding: 2px 6px;
+  width: 120px;
+  margin-top: 4px;
+  margin-left: -6px;
+}
+
+.home2-right-col {
+  display: grid;
+  grid-template-rows: repeat(3, 33.33%);
+  margin-left: 25px;
+}
+#home2-input-label1 {
+  margin: -24px auto 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 73%;
+  background-color: #3CBDA5;
+  height: 70px;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+#home2-input-label2 {
+  margin: -24px auto 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 73%;
+  background-color: #FCC242;
+  height: 70px;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+#home2-input-label3 {
+  margin: -24px auto 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 73%;
+  background-color: #8AABE2;
+  height: 70px;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.home2-right-col div {
+  background-color: #fff;
+  border-radius: 40px;
+}
+
+#home2-input1 {
+  margin: 0 0 30px 0;
+  box-shadow:  1px 3px 5px rgba(0, 0, 0, 0.08);
+
+}
+
+#home2-input2 {
+  margin: 15px 0 15px 0;
+  box-shadow:  1px 3px 5px rgba(0, 0, 0, 0.08);
+
+}
+
+#home2-input3 {
+  margin: 30px 0 0 0;
+  box-shadow:  1px 3px 5px rgba(0, 0, 0, 0.08);
+
+}
+#home2-lang-input {
+  font-size: 19px;
+  display: block;
+  color: #A8A8A8;
+  width: 80%;
+  height: 80px;
+  margin: 32px auto;
+}
+.home2-textarea-container {
+  color: #A8A8A8;
+  width: 80%;
+  margin: 32px auto;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+.home2-textarea-container textarea {
+  font-size: 19px;
+  height: 80px;
+  padding-left: 14px;
+}
+#home2-like-food-input, #home2-like-event-input {
+  border-right: 1px solid #A8A8A8;
+}
+
+textarea {
+  resize: none;
+}
+textarea::placeholder {
+  color: #A8A8A8;
+  font-family: 'Microsoft YaHei';
+}
+
+#home2-return-1 {
+  position: absolute;
+  width: 72px;
+  top: 12px;
+  left: 56px;
+}
+#home2-return-2 {
+  position: absolute;
+  width: 72px;
+  top: 12px;
+  right: 32px;
+  background-color: transparent;
+}
+.home3-config-icon:active {
+  filter: brightness(80%)
+}

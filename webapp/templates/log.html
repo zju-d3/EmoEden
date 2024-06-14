@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>打卡记录</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/log.css' %}">
+</head>
+<body>
+    <div class="log-container">
+        <!-- <img width="72px" onclick="clickReturn()" id="log-return-1"  src="{% static 'img/home2/左箭头.png' %}" alt=""> -->
+        {% if user_profile.diagnostic == 'H' %}
+            <a id="log-return2-container" href="{% url 'dashboard2' %}">
+                <img width="72px" id="log-return-2" src="{% static 'img/home2/对勾.png' %}" alt="">
+            </a>
+        {% else %}
+            <a id="log-return2-container" href="{% url 'dashboard' %}">
+                <img width="72px" id="log-return-2" src="{% static 'img/home2/对勾.png' %}" alt="">
+            </a>
+        {% endif %}
+
+        <div class="log-wrapper">
+            <div class="log-top">
+                <img width="100%" src="{% static 'img/log/打卡记录表.png' %}" alt="">
+                <div class="log-top-text">
+                    <!-- Record Sheet -->
+                    打卡记录表
+                </div>
+            </div>
+
+            <div class="log-content">
+                {% for dayInfo in data %}
+                {% if forloop.counter|add:2|divisibleby:3 %}
+                <div class="log-content-row1">
+                    <div class="log-date-title-container">
+                        <span>DAY</span>
+                        <span>{{forloop.counter}}</span>
+                    </div>
+                    <div class="log-date-item-container">
+                        <div class="log-date-item-wrapper">
+                            {% for item in dayInfo %}
+                            {% if item.complete == 1 %}
+                            <span class="log-date-item1">
+                                <span>{{forloop.counter}}</span>
+                                {% if item.score == 3 %}
+                                <div class="score-icon-container">
+                                    <img width="32px" src="{% static 'img/log/star.png' %}" alt="">
+                                    <img width="32px" src="{% static 'img/log/star.png' %}" alt="">
+                                    <img width="32px" src="{% static 'img/log/star.png' %}" alt="">
+                                </div>
+                                {% elif item.score == 2 %}
+                                <div class="score-icon-container">
+                                    <img width="32px" src="{% static 'img/log/star.png' %}" alt="">
+                                    <img width="32px" src="{% static 'img/log/star.png' %}" alt="">
+                                </div>
+                                {% elif item.score == 1 %}
+                                <div class="score-icon-container">
+                                    <img width="32px" src="{% static 'img/log/star.png' %}" alt="">
+                                </div>
+                                {% endif %}
+                            </span>
+                            {% else %}
+                            <span class="log-date-inactive"> <span>{{forloop.counter}}</span></span>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+                {% elif forloop.counter|add:1|divisibleby:3 %}
+                <div class="log-content-row2">
+                    <div class="log-date-title-container">
+                        <span>DAY</span>
+                        <span>{{forloop.counter}}</span>
+                    </div>
+                    <div class="log-date-item-container">
+                        <div class="log-date-item-wrapper">
+                            {% for item in dayInfo %}
+                            {% if item.complete == 1 %}
+                            <span class="log-date-item2">
+                                <span>{{forloop.counter}}</span>
+                                {% if item.score == 3 %}
+                                <div class="score-icon-container">
+                                    <img width="32px" src="{% static 'img/log/star.png' %}" alt="">
+                                    <img width="32px" src="{% static 'img/log/star.png' %}" alt="">
+                                    <img width="32px" src="{% static 'img/log/star.png' %}" alt="">
+                                </div>
+                                {% elif item.score == 2 %}
+                                <div class="score-icon-container">
+                                    <img width="32px" src="{% static 'img/log/star.png' %}" alt="">
+                                    <img width="32px" src="{% static 'img/log/star.png' %}" alt="">
+                                </div>
+                                {% elif item.score == 1 %}
+                                <div class="score-icon-container">
+                                    <img width="32px" src="{% static 'img/log/star.png' %}" alt="">
+                                </div>
+                                {% endif %}
+                            </span>
+                            {% else %}
+                            <span class="log-date-inactive">
+                                <span>{{forloop.counter}}</span></span>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+                {% elif forloop.counter|divisibleby:3 %}
+                <div class="log-content-row3">
+                    <div class="log-date-title-container">
+                        <span>DAY</span>
+                        <span>{{forloop.counter}}</span>
+                    </div>
+                    <div class="log-date-item-container">
+                        <div class="log-date-item-wrapper">
+                            {% for item in dayInfo %}
+                            {% if item.complete == 1 %}
+                            <span class="log-date-item3">
+                                <span>{{forloop.counter}}</span>
+                                {% if item.score == 3 %}
+                                <div class="score-icon-container">
+                                    <img width="32px" src="{% static 'img/log/star.png' %}" alt="">
+                                    <img width="32px" src="{% static 'img/log/star.png' %}" alt="">
+                                    <img width="32px" src="{% static 'img/log/star.png' %}" alt="">
+                                </div>
+                                {% elif item.score == 2 %}
+                                <div class="score-icon-container">
+                                    <img width="32px" src="{% static 'img/log/star.png' %}" alt="">
+                                    <img width="32px" src="{% static 'img/log/star.png' %}" alt="">
+                                </div>
+                                {% elif item.score == 1 %}
+                                <div class="score-icon-container">
+                                    <img width="32px" src="{% static 'img/log/star.png' %}" alt="">
+                                </div>
+                                {% endif %}
+                            </span>
+                            {% else %}
+                            <span class="log-date-inactive"> <span>{{forloop.counter}}</span></span>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>

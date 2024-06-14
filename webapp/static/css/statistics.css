@@ -1,0 +1,82 @@
+body {
+  margin: 0 auto;
+}
+html {
+  height: 100%;
+  background-color: #FEF6F4;
+  width: 1180px;
+}
+.stat-wrapper {
+  padding: 40px;
+}
+.stat-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.stat-title-text {
+  font-size: 36px;
+  font-weight: 700;
+}
+.stat-content {
+  display: grid;
+  grid-template-rows: auto;
+  gap: 32px;
+  overflow-x: auto;
+}
+.date-row, .info-row {
+  font-size: 16px;
+  /* display: grid;
+  grid-template-columns:  repeat(auto-fill, 160px); */
+  display: flex;
+}
+.info-item {
+  width: 180px;
+}
+.info-row >:first-child {
+  width: 60px;
+}
+.stat-content >:first-child {
+  font-weight: 700;
+  font-size: 24px;
+  border-bottom: 3px solid black;
+}
+
+.story-info {
+  display: grid;
+  grid-template-rows: auto;
+  gap: 32px;
+  overflow-x: auto;
+}
+.date-info {
+  display: flex;
+  overflow-x: auto;
+}
+.user-name {
+  font-size: 24px;
+  font-weight: 700;
+}
+.date-col {
+  width: 600px;
+}
+.date {
+  font-size: 24px;
+  font-weight: 700;
+  border-bottom: 3px solid black;
+  margin-bottom: 10px;
+}
+.story-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+.place-col {
+  padding-right: 30px;
+  display: grid;
+  grid-template-rows: auto;
+}
+.place-item {
+  margin-bottom: 30px;
+}
+.story1, .story2, .story3 {
+  margin-bottom: 10px;
+}

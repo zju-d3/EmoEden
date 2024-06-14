@@ -1,0 +1,55 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="login-title-container">
+          <div class="login-title">
+            <span>登录</span>
+          </div>
+          <div class="login-subtitle">
+            <span>登录你的账户</span>
+          </div>
+        </div>
+        <div class="login-header-container">
+          <div class="login-header">
+            <img src="{% static 'img/login/login.svg' %}" alt="登录img" width="26px">
+            <span>登录</span>
+          </div>
+        </div>
+        <form  method="post" class="login-form">
+            {% csrf_token %}
+<!--            {{ form.as_p }}-->
+            <div class="form-group ">
+              <div class="form-label">账号</div>
+              <div class="input-group">
+                <span class="input-group-addition">
+                  <img src="{% static 'img/login/username.svg' %}" alt="" width="32px" height="20px">
+                </span>
+                <input type="text" name="username" id="id_username"  placeholder="请输入账号">
+              </div>
+
+            </div>
+            <div class="form-group">
+              <div class="form-label">密码</div>
+              <div class="input-group">
+                <span class="input-group-addition">
+                  <img src="{% static 'img/login/password.svg' %}" alt="" width="32px" height="20px">
+                </span>
+                <input type="password" name="password" id="id_password" placeholder="请输入密码">
+              </div>
+            </div>
+            <button  type="submit">登录</button>
+            <a  href="{% url 'register' %}" class="register-button" >创建一个账号</a>
+        </form>
+    </div>
+
+</body>
+</html>

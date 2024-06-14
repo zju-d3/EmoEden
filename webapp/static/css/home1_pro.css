@@ -1,0 +1,240 @@
+/* 设置 textarea 的样式 */
+textarea {
+  border: 0;
+  padding: 0;
+  outline: none;
+  resize: none;
+}
+
+/* 设置整个页面的背景色和高度 */
+html {
+  height: 100%;
+  background-color: #FEF6F4;
+}
+
+/* 设置 body 的边距和填充 */
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+/* 设置容器的高度和背景色 */
+.container {
+  height: 100%;
+  background-color: #FEF6F4;
+}
+
+/* 对大长宽比设备应用的样式 */
+@media (min-aspect-ratio: 118/82) {
+  /* 设置 body 的高度和宽度 */
+  body {
+    height: 100vh;
+    width: 144vh;
+  }
+
+  /* 设置头像和情感图标的位置和大小 */
+  #emotion-1 {
+    position: absolute;
+    left: 2.44vh;
+    top: 10.24vh;
+    width: 11.46vh;
+  }
+  #emotion-2 {
+    position: absolute;
+    left: 17.07vh;
+    top: 22.44vh;
+    width: 11.46vh;
+  }
+  #emotion-3 {
+    position: absolute;
+    left: 37.07vh;
+    top: 4.88vh;
+    width: 11.46vh;
+  }
+
+  /* 设置用户名和介绍文本的样式 */
+  #wrapper1-username {
+    font-size: 5.37vh;
+    font-weight: 700;
+    color: #FF8A66;
+  }
+  #wrapper1-intro {
+    font-size: 2.8vh;
+    font-weight: 700;
+    color: #7A7774;
+    margin-bottom: 8px;
+  }
+
+  /* 设置页面布局的样式 */
+  #wrapper-1 {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding: 7.8vh 3.9vh 6.59vh 6.83vh;
+    box-sizing: border-box;
+    background-color: #FEF6F4;
+  }
+
+  /* 设置左侧和右侧栏的样式 */
+  .left-col {
+    display: grid;
+    grid-template-rows: 20% 80%;
+    margin-right: 5.49vh;
+  }
+  .right-col {
+    margin-left: 0.98vh;
+  }
+
+  /* 设置头像图片的样式 */
+  .portrait img {
+    width: 13.9vh;
+    height: 13.9vh;
+    border-radius: 100%;
+    padding: 0.61vh;
+    background-color: #fff;
+  }
+
+  /* 设置情感图标容器的样式 */
+  .emotions {
+    margin-top: 2.2vh;
+  }
+
+  /* 设置情感顶部和底部的样式 */
+  .emotions-top {
+    border-radius: 3.41vh;
+    background-color: #FDF5E0;
+    margin-bottom: 3.17vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.174);
+  }
+  .emotions-top-text {
+    background-color: #3CBDA5;
+    color: #fff;
+    font-size: 2.93vh;
+    position: absolute;
+    padding: 0.96vh 1.22vh;
+    border-radius: 0.98vh;
+    font-weight: 700;
+    top: 2.93vh;
+  }
+  .emotions-bottom {
+    background-color: #fff;
+    border-radius: 3.41vh;
+    padding: 2.44vh 3.41vh;
+    font-size: 2.44vh;
+    color: #A8A8A8;
+    font-family: 'Microsoft YaHei';
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.174);
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* 设置上传经验按钮的样式 */
+  .upload_experience {
+    background-color: #3CBDA5;
+    color: #fff;
+    padding: 0.73vh 2.44vh;
+    border-radius: 2.44vh;
+    font-size: 2.32vh;
+    position: absolute;
+    right: 2.44vh;
+    bottom: 1.95vh;
+    font-weight: 700;
+  }
+
+  /* 设置情感控制容器的样式 */
+  .emotions-control-container1 {
+    background-color: #fff;
+    display: none;
+    border-radius: 4.88vh;
+    padding: 1.22vh 1.46vh 0.24vh 1.46vh;
+    position: absolute;
+    top: 21.95vh;
+  }
+  .emotions-control-container2 {
+    background-color: #fff;
+    display: none;
+    border-radius: 4.88vh;
+    padding: 5px 1.46vh 0.24vh 1.46vh;
+    position: absolute;
+    top: 14.63vh;
+    right: 12.2vh;
+  }
+  .emotions-control-container2 img {
+    width: 6.34vh;
+  }
+
+  /* 设置背景容器的样式 */
+  .bg-item {
+    background-color: #f1f1f1;
+    margin-right: 1.22vh;
+    margin-left: 1.22vh;
+    border-radius: 4.88vh;
+    position: relative;
+  }
+
+  /* 设置底部图标的位置和大小 */
+  #home-icon {
+    position: absolute;
+    bottom: -0.24vh;
+    left: -1.46vh;
+    width: 23.17vh;
+  }
+  #play-icon {
+    position: absolute;
+    bottom: -0.98vh;
+    left: -2.2vh;
+    width: 17.68vh;
+  }
+  #bus-icon {
+    position: absolute;
+    bottom: -1.22vh;
+    left: -5.24vh;
+    width: 29.27vh;
+  }
+  #school-icon {
+    position: absolute;
+    bottom: 0px;
+    left: -0.61vh;
+    width: 21.46vh;
+  }
+  #purchase-icon {
+    position: absolute;
+    bottom: 0px;
+    left: -0.12vh;
+    width: 25.6vh;
+  }
+  #restaurant-icon {
+    position: absolute;
+    bottom: 0px;
+    left: -0.12vh;
+    width: 21.22vh;
+  }
+
+  /* 设置底部图标的动画效果 */
+  #home-icon,
+  #play-icon,
+  #bus-icon,
+  #school-icon,
+  #purchase-icon,
+  #restaurant-icon {
+    animation: float 2.7s infinite ease-in-out;
+  }
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-7px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+}

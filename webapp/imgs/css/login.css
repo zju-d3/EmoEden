@@ -1,0 +1,156 @@
+
+html {
+  height: 100%;
+  /* background-color: #FEF6F4; */
+}
+
+body {
+  margin: 0 auto;
+  padding: 0px;
+  height: 820px;
+  max-height: 820px;
+  max-width: 1180px;
+  width: 1180px;
+}
+
+.login-container{
+  width: 600px;
+ margin: 80px auto 100px auto
+}
+/* header */
+.login-header-container {
+ color: #333;
+}
+.login-title {
+ font-size: 22px;
+ font-weight: 700;
+ margin-bottom: 6px;
+}
+.login-title::before {
+ content: "";
+ width: 10px;
+ height: 20px;
+ background-color: #000;
+ position: relative;
+ top: 2px;
+ display: inline-block;
+ margin-right: 8px;
+}
+.login-subtitle {
+ font-size: 22px;
+ margin-bottom: 10px;
+}
+.login-header-text {
+ font-size: 14px;
+ margin-bottom: 12px;
+}
+.login-header-container {
+ background-color: #767676;
+ color: white;
+ display: flex;
+ justify-content: center;
+ align-content: center;
+ padding: 8px 0;
+}
+.login-header {
+ font-size: 18px;
+ line-height: 36px;
+ display: flex;
+}
+.login-header img {
+ margin-right: 10px;
+ margin-bottom: 2px;
+}
+
+.login-form {
+ padding: 0 20px;
+ padding-bottom: 20px;
+ display: flex;
+ flex-direction: column;
+ border: 1px solid #ccc;
+}
+.form-group {
+ margin-top: 20px;
+}
+.form-label {
+ font-weight: 700;
+ font-size: 14px;
+ margin-bottom: 4px;
+}
+input {
+  outline: none;
+  padding: 0 12px !important;
+}
+
+.input-group {
+ display: flex;
+ align-items: center;
+}
+.input-group-addition {
+ height: 44px;
+ padding-left: 12px;
+ border-left: 1px solid #ccc;
+ border-bottom: 1px solid #ccc;
+ border-top: 1px solid #ccc;
+ border-top-left-radius: 2px;
+ border-bottom-left-radius: 2px;
+}
+.input-group-addition img {
+ padding-right: 12px;
+ margin-top: 10px;
+ border-right: 1px solid #ccc;
+}
+.input-group input{
+ flex-grow: 1;
+ padding: 4px 12px;
+ height: 44px;
+ border-right: 1px solid #ccc;
+ border-bottom: 1px solid #ccc;
+ border-top: 1px solid #ccc;
+ border-top-right-radius: 2px;
+ border-bottom-right-radius: 2px;
+ font-size: 16px;
+ color: #494949;
+ border-left: 0;
+}
+.input-group input:focus {
+ border-top: 1.5px solid #64acec;
+ border-bottom: 1.5px solid #64acec;
+ border-right: 1.5px solid #64acec;  
+ -moz-box-shadow:0 0 10px #66afe9;
+ -webkit-box-shadow:0 0 10px #66afe9;
+ box-shadow:0 0 10px #66afe9;
+}
+
+.inform-text {
+ font-size: 12px;
+ color: #ff3300;
+ display: flex;
+ margin-top: 5px;
+}
+.inform-text img {
+ margin-bottom: 1px;
+ margin-right: 2px;
+}
+
+button{
+ height: 40px;
+ width: 188px;
+ background: #2189CA;
+ border-radius: 2px;
+ color: white;
+ font-size: 15px;
+ margin-top: 20px;
+ border: 0;
+}
+.register-button {
+ margin-top: 10px;
+ font-size: 12px;
+ text-decoration: underline;
+ cursor: pointer;
+ color: #757575;
+ width: 100px;
+}
+.register-button:hover {
+ font-weight: 700;
+}

@@ -1,0 +1,436 @@
+<!-- newpage.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Page</title>
+        {% load static %}
+    <!-- <link rel="stylesheet" href="{% static 'css/home1_pro.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home2_pro.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home3_pro.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'css/home1_Chinese.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home2_Chinese.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home3_Chinese.css' %}">
+</head>
+<body ontouchstart>
+    <style>
+        #home3-role-bg {
+            background-image: url("{% static '/img/home3/背景.png' %}");
+        }
+    </style>
+        <div style="display: none;" >
+            <input id="inputFile" name="avatar" type="file" accept="image/*" style="display: none;" width="0px" height="0px" capture="user">
+            <button onclick="uploadFile()" id="upload-file-btn" style="display: none;">Upload</button>
+        </div>
+        <form method="post" class="container">
+            {% csrf_token %}
+            <div id="wrapper-2">
+                {% if user_profile.diagnostic == 'H' %}
+                <a id="home2-return-1" href="{% url 'dashboard2' %}"><img class="return" src="{% static 'img/home2/左箭头.png' %}" alt=""></a>
+                {% else %}
+                <a id="home2-return-1" href="{% url 'dashboard' %}"><img class="return" src="{% static 'img/home2/左箭头.png' %}" alt=""></a>
+                {% endif %}
+                <div class="home2-left-col">
+                    <div class="home2-left-col-top">
+
+                        {% if user_profile.name == "" %}
+                        <img onclick="uploadPortrait()" style="background-color: white;" class="home2-portrait" src="{%static 'avatar/User Name/喜.png'%}" id="previewImage">
+                        {% else %}
+                        <img onclick="uploadPortrait()" style="background-color: white;" class="home2-portrait" src="{{avatar}}" id="previewImage">
+                        {% endif %}
+
+
+<!--                        <input id="inputFile" type="file" accept="image/*" style="display: none;" width="0px" height="0px" capture="user">-->
+                    
+                        <span class="home2-basic-info">
+                            <div class="home-2-basic-info-wrapper">
+                                <div class="home-2-basic-info-text home-2-basic-info-left-text">
+                                    <span>
+                                        姓名：
+                                        <!-- Name: -->
+                                    </span>
+                                    <input class="home2-basic-info-input" value="{{ user_profile.name }}" id="name" name="name" type="text">
+                                </div>
+                                <div class="home-2-basic-info-text">
+                                    <span>
+                                        出生日期：
+                                        <!-- Birthday:  -->
+                                    </span>
+                                    <input class="home2-basic-info-input" value="{{ user_profile.age }}" id="age" name="age" type="text">
+                                </div>
+                                <div class="home-2-basic-info-text home-2-basic-info-left-text">
+                                    <span>
+                                        性别：
+                                        <!-- Gender: -->
+                                    </span>
+                                    <input class="home2-basic-info-input" value="{{ user_profile.gender }}" id="gender" name="gender" type="text">
+                                </div>
+                                <div class="home-2-basic-info-text">
+                                    <span>
+                                        诊断结果：
+                                        <!-- Diagnosis: -->
+                                    </span>
+                                    <input class="home2-basic-info-input" value="{{ user_profile.diagnostic }}" id="diagnostic" name="diagnostic" type="text">
+                                </div>
+                                <div class="home-2-basic-info-text home-2-basic-info-left-text">
+                                    <span>
+                                        籍贯：
+                                        <!-- Hometown: -->
+                                    </span>
+                                    <input class="home2-basic-info-input" value="{{ user_profile.area }}" id="area" name="area" type="text">
+                                </div>
+                                <div class="home-2-basic-info-text">
+                                    <span>
+                                        兴趣爱好：
+                                        <!-- Hobby: -->
+                                    </span>
+                                    <input class="home2-basic-info-input" value="{{ user_profile.hobby }}" id="hobby" name="hobby" type="text">
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    <div onclick="clickCreateRoleBtn()" id="create-role-btn" class="home2-left-col-bottom">
+                        <img id="create-role-icon" src="{% static 'img/home2/动物.png' %}" alt="">
+                        <span id="create-role-text">
+                            <span class="create-role-text-container">
+                                <span class="create-role-text-top">
+                                    <!-- Create a Role -->
+                                    创建形象
+                                </span>
+                                <span class="create-role-text-bottom">
+                                    <!-- Create a personalized role based on your preferences -->
+                                    自身喜好生成专属形象
+                                </span>
+                            </span>
+
+                        </span>
+                    </div>
+                </div>
+                <div class="home2-right-col">
+                    <div class="home2-right-top">
+                        <div id="home2-input1">
+                            <div id="home2-input-label1">
+                                <span id="home2-input-label-text1">
+                                    <!-- Liked/Disliked Food -->
+                                    喜欢/不喜欢的食物
+                                </span>
+                            </div>
+                            <div class="home2-textarea-container">
+                                <textarea name="food_like" value="{{ user_profile.food_like }}" placeholder="请输入孩子喜欢的食物，例如蛋糕、可乐......" id="home2-like-food-input" >{{ user_profile.food_like }}</textarea>
+                                <!-- <textarea name="food_like" value="{{ user_profile.food_like }}" placeholder="Please enter your child's liked food, for example, cake, cola..." id="home2-like-food-input" >{{ user_profile.food_like }}</textarea> -->
+                                <textarea name="food_dislike" value="{{ user_profile.food_dislike }}" placeholder="请输入孩子不喜欢的食物，例如苦瓜、鸡蛋......" id="home2-dislike-food-input" >{{ user_profile.food_dislike }}</textarea>
+                                <!-- <textarea name="food_dislike" value="{{ user_profile.food_dislike }}" placeholder="Please enter your child's disliked food, for example, bitter gourd, eggs..." id="home2-dislike-food-input" >{{ user_profile.food_dislike }}</textarea> -->
+                            </div>
+                        </div>
+                        <div id="home2-input2">
+                            <div id="home2-input-label2">
+                                <span id="home2-input-label-text2">
+                                    <!-- Liked/Disliked Activities -->
+                                    喜欢/不喜欢的事件
+                                </span>
+                            </div>
+                            <div class="home2-textarea-container">
+                                <textarea name="event_like" value="{{ user_profile.event_like }}" placeholder="请输入孩子喜欢的事件，例如游泳、唱歌......" id="home2-like-event-input" >{{ user_profile.event_like }}</textarea>
+                                <!-- <textarea name="event_like" value="{{ user_profile.event_like }}" placeholder="Please enter your child's liked activities, for example, singing, swimming..." id="home2-like-event-input" >{{ user_profile.event_like }}</textarea> -->
+                                <textarea name="event_dislike" value="{{ user_profile.event_dislike }}" placeholder="请输入孩子不喜欢的事件，例如独自购物......" id="home2-dislike-event-input" >{{ user_profile.event_dislike }}</textarea>
+                                <!-- <textarea name="event_dislike" value="{{ user_profile.event_dislike }}" placeholder="Please enter your child's disliked activities, for example, shopping alone..." id="home2-dislike-event-input" >{{ user_profile.event_dislike }}</textarea> -->
+                            </div>
+                        </div>
+                        <div id="home2-input3">
+                            <div id="home2-input-label3">
+                                <span id="home2-input-label-text3">
+                                    <!-- Language Habits -->
+                                    语言习惯
+                                </span>
+                            </div>
+                                <!-- <textarea name="phrase" value="{{ user_profile.phrase }}" placeholder="Please enter your child's pet phrase..." id="home2-lang-input" >{{ user_profile.phrase }}</textarea> -->
+                                <textarea name="phrase" value="{{ user_profile.phrase }}" placeholder="请输入孩子的口头禅......" id="home2-lang-input" >{{ user_profile.phrase }}</textarea>
+                        </div>
+                    </div>
+                    <div class="home2-right-bottom">
+                        <a href="{% url 'log' %}" class="home2-bottom-content">
+                            <span>打卡记录表</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+            <div id="wrapper-3">
+                <img onclick="clickReturn2()" id="home3-return-1" class="return" src="{% static 'img/home2/左箭头.png' %}" alt="">
+                <button id="home2-return-2" style="border: 0;"  type="submit"> <img class="return" src="{% static 'img/home2/对勾.png' %}" alt=""></button>
+
+                <div class="home3-left-col">
+
+                    <div class="home3-left-col-inner">
+                        {% if user_profile.role == None %}
+                        <div class="home3-role">
+                            <img id="home3-role-img" width="100%" src="{{user_profile.role}}" alt="">
+                        </div>
+                        <div class="home3-role-name">
+                            <span class="home3-role-name-input-text">Name</span>
+                            <input name="ai_name" value="{{user_profile.ai_name}}" placeholder="Give your character a name~" class="home3-role-name-input" type="text">
+                        </div>
+                        {% else %}
+                        <div class="home3-role" id="home3-role-bg">
+                            <img id="home3-role-img" width="100%" src="{{user_profile.role}}" alt="">
+                        </div>
+                        <div class="home3-role-name">
+                            <span class="home3-role-name-input-text">
+                                <!-- Name -->
+                                名字
+                            </span>
+                            <!-- <input name="ai_name" value="{{user_profile.ai_name}}" placeholder="Give your character a name~"  class="home3-role-name-input" type="text"> -->
+                            <input name="ai_name" value="{{user_profile.ai_name}}" placeholder="为你创建的形象取个名字吧~"  class="home3-role-name-input" type="text">
+                        </div>
+                        {% endif %}
+                    </div>
+
+                </div>
+                <div class="home3-right-col">
+                    <input style="display: none;" class="home2-basic-info-input" value="{{ user_profile.role }}" id="role" name="role" type="text">
+
+                    <div class="role-config-1 role-config">
+                        <div class="home3-config-text-container">
+                            <span class="role-config-text">
+                                <!-- Texture -->
+                                材质
+                            </span>
+                        </div>
+                        <div class="home3-config-icon-container">
+                            <img width="114px" class="home3-config-icon" onclick="config1('滑')" src="{% static 'img/home3/材质1.png' %}" alt="">
+                            <img width="114px" class="home3-config-icon" onclick="config1('毛')" src="{% static 'img/home3/材质2.png' %}" alt="">
+                            <img width="114px" class="home3-config-icon" onclick="config1('透')" src="{% static 'img/home3/材质3.png' %}" alt="">
+                        </div>
+
+                    </div>
+                    <div class="role-config-2 role-config">
+                        <div class="home3-config-text-container">
+                            <span class="role-config-text">
+                                <!-- Character -->
+                                形象
+                            </span>
+                        </div>
+                        <div class="home3-config-icon-container">
+                            <img class="home3-config-icon" onclick="config2('猫')" src="{% static 'img/home3/形象1.png' %}" alt="">
+                            <img class="home3-config-icon" onclick="config2('兔')" src="{% static 'img/home3/形象2.png' %}" alt="">
+                            <img class="home3-config-icon" onclick="config2('狗')" src="{% static 'img/home3/形象3.png' %}" alt="">
+                        </div>
+                    </div>
+                    <div class="role-config-3 role-config">
+                        <div class="home3-config-text-container">
+                            <span class="role-config-text">
+                                <!-- Color -->
+                                颜色
+                            </span>
+                        </div>
+                        <div class="home3-config-icon-container">
+                            <img class="home3-config-icon" onclick="config3('蓝')" src="{% static 'img/home3/颜色1.png' %}" alt="">
+                            <img class="home3-config-icon" onclick="config3('黄')" src="{% static 'img/home3/颜色2.png' %}" alt="">
+                            <img class="home3-config-icon" onclick="config3('红')" src="{% static 'img/home3/颜色3.png' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+</body>
+<script>
+    // 获取页面元素
+    let wrapper2 = document.getElementById("wrapper-2"); // 获取元素wrapper-2
+    let wrapper3 = document.getElementById("wrapper-3"); // 获取元素wrapper-3
+    let return1 = document.getElementById("return-1"); // 获取元素return-1
+    let return2 = document.getElementById("return-2"); // 获取元素return-2
+    let createRoleBtn = document.getElementById("create-role-btn"); // 获取元素create-role-btn
+
+    let inputFile = document.getElementById('inputFile'); // 获取元素inputFile
+    let uploadFileBtn = document.getElementById('upload-file-btn'); // 获取元素upload-file-btn
+
+    // 创建快捷方式函数
+    const $ = document.getElementById.bind(document); // 创建快捷方式函数$
+    const $inputFile = $('inputFile'); // 创建快捷方式函数$inputFile
+    const $previewImage = $('previewImage'); // 创建快捷方式函数$previewImage
+    let file = ""; // 初始化file为空字符串
+
+    // 监听文件选择事件
+    $inputFile.addEventListener('change', function() {
+      file = this.files[0]; // 设置file为选择的文件
+      $previewImage.src = file ? URL.createObjectURL(file) : ''; // 根据文件创建预览图
+      let blob = new Blob([event.target.files[0]]) // 创建blob对象
+        console.log(blob); // 输出blob对象
+        let formData = new FormData(); // 创建FormData对象
+        formData.append('avatar', [event.target.files[0]]); // 添加文件到FormData
+        console.log(formData); // 输出FormData对象
+        console.log(formData['avatar']); // 输出FormData中的文件
+        console.log(event.target.files[0]); // 输出事件中的文件
+        fetch('/upload/', { // 发送POST请求
+            method: 'POST',
+            body: formData, // 请求体为FormData对象
+            headers: { 'X-CSRFToken': getCookie('csrftoken') }, // 添加CSRF令牌头部
+        }).then(res => {
+            console.log(res); // 输出响应结果
+        });
+    }, this);
+
+    // 上传文件函数
+    function uploadFile() {
+        let blob = new Blob(file) // 创建blob对象
+        console.log('123123'); // 输出调试信息
+        console.log(blob); // 输出blob对象
+        let formData = new FormData(); // 创建FormData对象
+        formData.append('avatar', blob); // 添加文件到FormData
+        fetch('/upload/', { // 发送POST请求
+            method: 'POST',
+            body: formData, // 请求体为FormData对象
+            headers: { 'X-CSRFToken': getCookie('csrftoken') }, // 添加CSRF令牌头部
+        }).then(res => {
+            console.log(res); // 输出响应结果
+        });
+        
+    }
+
+    // 获取Cookie函数
+    function getCookie(name) {
+        let cookieValue = null; // 初始化cookieValue为空
+        if (document.cookie && document.cookie !== '') { // 判断是否存在cookie
+            let cookies = document.cookie.split(';'); // 分割cookie字符串
+            for (let i = 0; i < cookies.length; i++) { // 循环处理每个cookie
+                let cookie = cookies[i].trim(); // 去除首尾空格
+                if (cookie.substring(0, name.length + 1) === (name + '=')) { // 判断是否是目标cookie
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1)); // 解码cookie值
+                    break; // 跳出循环
+                }
+            }
+        }
+        return cookieValue; // 返回cookie值
+    }
+
+    // 触发上传头像函数
+    function uploadPortrait() {
+        inputFile.click(); // 触发文件选择框点击事件
+    }
+
+    // 返回按钮点击事件处理函数
+    function clickReturn1() {
+        wrapper2.style.display = "none"; // 隐藏wrapper2元素
+        wrapper1.style.display = "grid"; // 显示wrapper1元素
+    }
+    function clickReturn2() {
+        wrapper3.style.display = "none"; // 隐藏wrapper3元素
+        wrapper2.style.display = "grid"; // 显示wrapper2元素
+    }
+    function clickCreateRoleBtn() {
+        wrapper2.style.display = "none"; // 隐藏wrapper2元素
+        wrapper3.style.display = "grid"; // 显示wrapper3元素
+    }
+
+    // 提交表单函数
+    function submitForm() {
+        let name = document.getElementById('name').value; // 获取姓名值
+        let age = document.getElementById('age').value; // 获取年龄值
+        let gender = document.getElementById('gender').value; // 获取性别值
+        let area = document.getElementById('area').value; // 获取地区值
+        let hobby = document.getElementById('hobby').value; // 获取爱好值
+        let diagnostic = document.getElementById('diagnostic').value; // 获取诊断值
+        let food_like = document.getElementById('home2-like-food-input') // 获取喜欢的食物
+        let food_dislike = document.getElementById('home2-dislike-food-input') // 获取不喜欢的食物
+        let event_like = document.getElementById('home2-like-event-input') // 获取喜欢的事件
+        let event_dislike = document.getElementById('home2-dislike-event-input') // 获取不喜欢的事件
+        let phrase = document.getElementById('home2-lang-input'); // 获取语言短语
+        uploadFileBtn.click(); // 触发上传文件按钮点击事件
+        fetch('/uinfo/', { // 发送POST请求
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, // 设置请求头部
+            body: new URLSearchParams({ // 构造请求体
+                'csrfmiddlewaretoken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                'name': name,
+                'age': age,
+                'gender': gender,
+                'area': area,
+                'hobby': hobby,
+                'diagnostic': diagnostic,
+                'food_like': food_like,
+                'food_dislike': food_dislike,
+                'event_like': event_like,
+                'event_dislike': event_dislike,
+                'phrase': phrase
+            })
+        }).then(res => {
+            console.log(res); // 输出响应结果
+        })
+    }
+
+    // home3页面配置角色函数
+    let material = ""; // 初始化材料为空字符串
+    let appearance = ""; // 初始化外观为空字符串
+    let color = ""; // 初始化颜色为空字符串
+    function config1(val) {
+        if(appearance !== "" || material !== "") {
+            let role_container = document.getElementsByClassName("home3-role")[0]; // 获取角色容器元素
+            role_container.style.backgroundImage = `` // 设置角色容器背景图片为空
+        }
+        material = val; // 更新材料
+        if(appearance !== "" && color !== "") { // 如果外观和颜色都已选择
+            changeRole() // 更新角色
+        }
+    }
+    function config2(val) {
+        if(appearance !== "" || material !== "") {
+            let role_container = document.getElementsByClassName("home3-role")[0]; // 获取角色容器元素
+            role_container.style.backgroundImage = `` // 设置角色容器背景图片为空
+        }
+        appearance = val; // 更新外观
+        if(material !== "" && color !== "") { // 如果材料和颜色都已选择
+            changeRole() // 更新角色
+        }
+    }
+    function config3(val) {
+        if(appearance !== "" || material !== "") {
+            let role_container = document.getElementsByClassName("home3-role")[0]; // 获取角色容器元素
+            role_container.style.backgroundImage = `` // 设置角色容器背景图片为空
+        }
+
+        color = val; // 更新颜色
+        if(appearance !== "" && material !== "") { // 如果外观和材料都已选择
+            changeRole() // 更新角色
+        }
+    }
+
+    // 更改角色函数
+    function changeRole() {
+        let name = color + material + appearance; // 拼接角色名称
+        let file_name = name; // 初始化文件名为角色名称
+        switch (appearance) { // 根据外观设置文件名前缀
+            case "猫":
+                file_name = "1" + file_name;
+                break;
+            case "狗":
+                file_name = "2" + file_name;
+                break;
+            case "兔":
+                file_name = "3" + file_name;
+                break;
+            default:
+                break;
+        }
+        let path = `./img/roles/${file_name}/${name}.png` // 构造图片路径
+        console.log(path) // 输出路径
+        let role_container = document.getElementsByClassName("home3-role")[0]; // 获取角色容器元素
+        console.log(role_container); // 输出角色容器元素
+        role_container.style.backgroundImage = `url("{% static '/img/home3/背景.png' %}")` // 设置背景图片
+        role_container.innerHTML = `<img id="home3-role-img" width="90%" src="" alt="">` // 设置角色图片元素
+        let img = document.getElementById("home3-role-img"); // 获取角色图片元素
+        let role = document.getElementById("role"); // 获取角色隐藏域
+        img.src = path; // 设置图片路径
+        let imgSrc = ""; // 初始化图片路径为空
+        let val = ""; // 初始化隐藏域值为空
+        switch (file_name) { // 根据文件名设置图片路径和隐藏域值
+            case "1红毛猫":
+                imgSrc = "{% static 'img/roles/1红毛猫/红毛猫.png' %}"
+                val = "img/roles/1红毛猫/红毛猫.png"
+                break;
+            // 其他case省略，根据实际情况补充
+            default:
+                break;
+        }
+        img.src = imgSrc; // 设置图片路径
+        role.value = imgSrc; // 设置隐藏域值
+    }
+</script>

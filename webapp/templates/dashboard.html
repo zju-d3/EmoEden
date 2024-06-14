@@ -1,0 +1,313 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>仪表板</title>
+        {% load static %}
+    <!-- 引入静态文件 -->
+    <link rel="stylesheet" href="{% static 'css/home1_Chinese.css' %}">
+
+</head>
+
+<body ontouchstart>
+    <style>
+        .emotions-top {
+            background-image: url("{% static '/img/home1/Vector1.png' %}");
+        }
+        #mask {
+            z-index: 1000;
+            background-color: #0000009a;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+        #loading-img {
+            margin: auto auto;
+
+        }
+
+    </style>
+    <!-- 遮罩层 -->
+    <div id="mask">
+        <img id="loading-img" src="{% static 'img/home1/loading.gif' %}" width="60%" alt="">
+    </div>
+    <div class="container">
+        <div id="scenes" style="display: none;"></div>
+        <form method="post" id="wrapper-1">
+            <!-- 上传提醒 -->
+            <div id="uploadRemind" class="popup-window-bg">
+                <div class="popup-window">
+                    <div class="popup-content">
+                        <div class="popup-text">
+                            上传成功！
+                              <br>
+                              请选择一个故事场景练习吧~
+                        </div>
+                        <div onclick="uploadConfirm()" id="uploadRemindBtn" class="popup-option-btn">
+                            好的
+                        </div>
+                    </div>
+                  </div>
+            </div>
+    
+              <!-- 场景检查提醒 -->
+              <div id="checkScenes" class="popup-window-bg">
+                <div class="popup-window">
+                  <div class="popup-content">
+                    <div class="popup-text">
+                        今天已经做过这个场景了，
+                        <br>
+                        请选择其他场景联系吧~
+                    </div>
+                    <div onclick="scenesConfirm()" id="checkScenesBtn" class="popup-option-btn">
+                        确定
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 最近经历检查提醒 -->
+              <div id="checkRecent" class="popup-window-bg">
+                <div class="popup-window">
+                  <div class="popup-content">
+                    <div class="popup-text">
+                        请先上传最近的经历
+                    </div>
+                    <div onclick="checkRecent()" id="checkRecentBtn" class="popup-option-btn">
+                        确定
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% csrf_token %}
+            <input style="display: none;" type="text" id="place" name="place">
+            <input style="display: none;" value="生气" type="text" id="mood" name="mood">
+            <button style="display: none;" id="submit" type="submit"></button>
+            <!-- 左侧栏 -->
+            <div class="left-col">
+                <div class="basic-info">
+                    <a href="{% url 'uinfo' %}" class="portrait">
+                        {% if user_profile.name == "" %}
+                        <img onclick="uploadPortrait()" class="home2-portrait" src="{%static 'avatar/User Name/喜.png'%}" id="previewImage">
+                        {% else %}
+                        <img onclick="uploadPortrait()" class="home2-portrait" src="{{avatar}}" id="previewImage">
+                        {% endif %}
+                    </a>
+                    <div class="info">
+                        {% if user_profile.name == "" %}
+                        <div id="wrapper1-username">
+                            未设置用户名
+                        </div>
+                        {% else %}
+                        <div id="wrapper1-username">
+                            {{user_profile.name}}
+                        </div>
+                        {% endif %}
+                        <div id="wrapper1-intro">
+                            不积硅步无以至千里，继续加油哦
+                        </div>
+                    </div>
+
+                </div>
+                <div class="emotions">
+                    <div class="emotions-inner">
+                        <div class="emotions-top">
+                            <img id="emotion-1" src="{% static 'img/home1/喜悦.png' %}" alt="">
+                            <img id="emotion-2" onclick="clickEmotion2()" src="{% static 'img/home1/愤怒.png' %}" alt="">
+                            <img id="emotion-3" src="{% static 'img/home1/喜悦.png' %}" alt="">
+
+                            <div class="emotions-control-container2">
+                                <img class="emotions-control-item4" src="{% static 'img/home1/喜悦.png' %}" alt="">
+                                <img class="emotions-control-item5" src="{% static 'img/home1/喜悦.png' %}" alt="">
+                                <img class="emotions-control-item6" src="{% static 'img/home1/喜悦.png' %}" alt="">
+                            </div>
+                            <div class="emotions-top-text">
+                                情绪地图
+                            </div>
+
+                        </div>
+                        <div style="position: relative;">
+                            <textarea class="emotions-bottom" id="recent_experience" onkeyup="recentInput()" name="recent_experience" placeholder="请输入孩子最近的遭遇......"></textarea>
+                            <input id="recent_experience_input" name="recent_experience" style="display: none;" type="text">
+                            <div onclick="uploadExperience()" class="upload_experience">
+                                上传
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- 右侧栏 -->
+            <div class="right-col">
+                <div class="background">
+                    <div onclick="clickBg('家庭')" class="bg-item" id="bg1"><img id="home-icon" src="{% static 'img/home1/家庭.png' %}" width="190px" alt=""><span class="icon-text">
+                        家庭
+                    </span></div>
+                    <div onclick="clickBg('娱乐')" class="bg-item" id="bg2"><img id="play-icon" width="145px" src="{% static 'img/home1/娱乐.png' %}" alt=""><span class="icon-text">
+                        娱乐
+                    </span></div>
+                    <div onclick="clickBg('交通')" class="bg-item" id="bg3"><img id="bus-icon" width="240px" src="{% static 'img/home1/公共交通.png' %}" alt=""><span class="icon-text">
+                        交通
+                    </span></div>
+                    <div onclick="clickBg('校园')" class="bg-item" id="bg4"><img id="school-icon" width="176px" src="{% static 'img/home1/学校.png' %}" alt=""><span class="icon-text">
+                        校园
+                    </span></div>
+                    <div onclick="clickBg('购物')" class="bg-item" id="bg5"><img id="purchase-icon" width="210px" src="{% static 'img/home1/超市.png' %}" alt=""><span class="icon-text">
+                        购物
+                    </span></div>
+                    <div onclick="clickBg('用餐')" class="bg-item" id="bg6"><img id="restaurant-icon" width="144px" src="{% static 'img/home1/餐厅.png' %}" alt=""><span class="icon-text">
+                        餐厅
+                    </span></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+<script>
+    // 获取元素
+    let wrapper1 = document.getElementById("wrapper-1");
+    let return1 = document.getElementById("return-1");
+    let return2 = document.getElementById("return-2");
+    let createRoleBtn = document.getElementById("create-role-btn");
+    let emotion2 = document.getElementById("emotion-2");
+    let emotion_container2 = document.getElementsByClassName("emotions-control-container2")[0];
+    let e1 = "喜悦";
+    let e2 = "生气";
+    let e3 = "喜悦";
+    let inputFile = document.getElementById('inputFile');
+
+    // 获取元素的简便方法
+    const $ = document.getElementById.bind(document);
+    const $inputFile = $('inputFile');
+    const $previewImage = $('previewImage');
+    
+    // 监听文件选择事件，显示预览图像
+    $inputFile.addEventListener('change', function() {
+      const file = this.files[0];
+      $previewImage.src = file ? URL.createObjectURL(file) : '';
+    }, this);
+
+    // 处理最近输入的经历
+    function recentInput() {
+        let recent_experience = document.getElementById('recent_experience').value;
+        let recent_experience_input = document.getElementById('recent_experience_input');
+        recent_experience_input.value = recent_experience;
+    }
+
+    // 确认上传
+    function uploadConfirm() {
+        let uploadRemind = document.getElementById('uploadRemind');
+        uploadRemind.style.display = 'none';
+    }
+    
+    // 确认场景选择
+    function scenesConfirm() {
+        let checkScenes = document.getElementById('checkScenes');
+        checkScenes.style.display = 'none';
+    }
+    
+    // 上传经历
+    function uploadExperience() {
+        let uploadRemind = document.getElementById('uploadRemind');
+        uploadRemind.style.display = 'flex';
+    }
+    
+    // 检查最近经历
+    function checkRecent() {
+        let checkRecent = document.getElementById('checkRecent');
+        checkRecent.style.display = 'none';
+    }
+
+    // 触发上传头像
+    function uploadPortrait() {
+        inputFile.click();
+    }
+
+    // 点击背景时的操作
+    function clickBg(val) {
+        let recent_experience = document.getElementById('recent_experience').value;
+        if(recent_experience == "") {
+            console.log("未输入最近的遭遇");
+            let checkRecent = document.getElementById('checkRecent');
+            checkRecent.style.display = 'flex';
+        } else {
+            let place = document.getElementById('place');
+            place.value = val;
+            let scenes= document.getElementById('scenes').innerText;
+            if(scenes.includes(val)) {
+                console.log("选过了");
+                let checkScenes = document.getElementById('checkScenes');
+                checkScenes.style.display = "flex";
+            } else {
+                console.log("没选过");
+                let submit = document.getElementById('submit');
+                submit.click();
+                let mask = document.getElementById("mask");
+                mask.style.display = "flex";
+            }
+        }
+    }
+    
+    // 点击头像时的操作
+    function clickPortrait() {
+        wrapper1.style.display = "none";
+        wrapper2.style.display = "grid";
+    }
+    
+    // 返回1时的操作
+    function clickReturn1() {
+        wrapper2.style.display = "none";
+        wrapper1.style.display = "grid";
+    }
+    
+    // 返回2时的操作
+    function clickReturn2() {
+        wrapper3.style.display = "none";
+        wrapper2.style.display = "grid";
+    }
+    
+    // 点击创建角色按钮时的操作
+    function clickCreateRoleBtn() {
+        wrapper2.style.display = "none";
+        wrapper3.style.display = "grid";
+    }
+
+    // 点击第二个表情时的操作
+    function clickEmotion2() {
+        emotion_container2.style.display = "inline-block";
+        emotion_container2.innerHTML =
+        `
+            <img class="emotions-control-item4" onclick="emoOptions2('生气')" width="52px" name="生气" src="{% static 'img/home1/愤怒.png' %}" alt="">
+            <img class="emotions-control-item5" onclick="emoOptions2('难过')" width="52px" name="难过" src="{% static 'img/home1/难过.png' %}" alt="">
+            <img class="emotions-control-item6" onclick="emoOptions2('害怕')" width="52px" name="害怕" src="{% static 'img/home1/害怕.png' %}" alt="">
+        `;
+    }
+ 
+    // 第二个表情选项操作
+    function emoOptions2(val) {
+        let emotion2 = document.getElementById("emotion-2");
+        let emotion_container2 = document.getElementsByClassName("emotions-control-container2")[0];
+        emotion_container2.style.display = "none";
+        let mood = document.getElementById('mood');
+        mood.value = val;
+        switch (val) {
+            case "生气":
+                emotion2.src = `{% static '/img/home1/愤怒.png' %}`;
+                break;
+            case "难过":
+                emotion2.src = `{% static '/img/home1/难过.png' %}`;
+                break;
+            case "害怕":
+                emotion2.src = `{% static '/img/home1/害怕.png' %}`;
+                break;
+
+            default:
+                break;
+        }
+    }
+</script>
+</html>
+
