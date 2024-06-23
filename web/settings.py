@@ -38,13 +38,13 @@ LOGIN_REDIRECT_URL = '/dashboard/'  # 这里可以指定用户登录成功后重
 LOGIN_URL = '/login/'
 
 INSTALLED_APPS = [
+    'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_crontab',
     'webapp',
 ]
 

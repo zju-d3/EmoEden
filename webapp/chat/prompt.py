@@ -419,7 +419,7 @@ def discuss(front_msg):
     return msg
 
 
-API_KEY = 'your api key'
+API_KEY = 'sk-0ab3f0c21a4b48c2baf3a7986d9ed518'
 
 
 # 函数extend_user用于扩展用户的回答。

@@ -4,11 +4,11 @@ altgraph==0.17.3
 asgiref==3.7.2
 async-timeout==4.0.2
 attrs==23.1.0
-certifi==2023.5.7
+certifi==2023.11.17
 charset-normalizer==3.2.0
 colorama==0.4.6
 Django==3.2.25
-frozenlist==1.4.0
+frozenlist==1.3.3
 idna==3.4
 multidict==6.0.4
 openai==1.13.3
@@ -22,3 +22,7 @@ tqdm==4.65.0
 tzdata==2023.3
 urllib3==2.0.4
 yarl==1.9.2
+edge-tts==6.1.12
+django_crontab==0.7.1
+dashscope~=1.16.0
+Pillow==9.5.0

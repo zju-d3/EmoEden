@@ -40,7 +40,7 @@
 
 
 <!--                        <input id="inputFile" type="file" accept="image/*" style="display: none;" width="0px" height="0px" capture="user">-->
-                    
+
                         <span class="home2-basic-info">
                             <div class="home-2-basic-info-wrapper">
                                 <div class="home-2-basic-info-text home-2-basic-info-left-text">
@@ -283,7 +283,7 @@
         }).then(res => {
             console.log(res); // 输出响应结果
         });
-        
+
     }
 
     // 获取Cookie函数
@@ -395,9 +395,9 @@
 
     // 更改角色函数
     function changeRole() {
-        let name = color + material + appearance; // 拼接角色名称
-        let file_name = name; // 初始化文件名为角色名称
-        switch (appearance) { // 根据外观设置文件名前缀
+        let name = color + material + appearance;
+        let file_name = name;
+        switch (appearance) {
             case "猫":
                 file_name = "1" + file_name;
                 break;
@@ -410,27 +410,132 @@
             default:
                 break;
         }
-        let path = `./img/roles/${file_name}/${name}.png` // 构造图片路径
-        console.log(path) // 输出路径
-        let role_container = document.getElementsByClassName("home3-role")[0]; // 获取角色容器元素
-        console.log(role_container); // 输出角色容器元素
-        role_container.style.backgroundImage = `url("{% static '/img/home3/背景.png' %}")` // 设置背景图片
-        role_container.innerHTML = `<img id="home3-role-img" width="90%" src="" alt="">` // 设置角色图片元素
-        let img = document.getElementById("home3-role-img"); // 获取角色图片元素
-        let role = document.getElementById("role"); // 获取角色隐藏域
-        img.src = path; // 设置图片路径
-        let imgSrc = ""; // 初始化图片路径为空
-        let val = ""; // 初始化隐藏域值为空
-        switch (file_name) { // 根据文件名设置图片路径和隐藏域值
+        let path = `./img/roles/${file_name}/${name}.png`
+        console.log(path)
+        let role_container = document.getElementsByClassName("home3-role")[0];
+        console.log(role_container);
+        role_container.style.backgroundImage = `url("{% static '/img/home3/背景.png' %}")`
+        role_container.innerHTML = `<img id="home3-role-img" width="90%" src="" alt="">`
+        let img = document.getElementById("home3-role-img");
+        let role = document.getElementById("role");
+        img.src = path;
+        let imgSrc = "";
+        let val = "";
+        switch (file_name) {
             case "1红毛猫":
                 imgSrc = "{% static 'img/roles/1红毛猫/红毛猫.png' %}"
                 val = "img/roles/1红毛猫/红毛猫.png"
                 break;
-            // 其他case省略，根据实际情况补充
+            case "1红滑猫":
+                imgSrc = "{% static 'img/roles/1红滑猫/红滑猫.png' %}"
+                val = "img/roles/1红滑猫/红滑猫.png"
+                break;
+            case "1红透猫":
+                imgSrc = "{% static 'img/roles/1红透猫/红透猫.png' %}"
+                val = "img/roles/1红透猫/红透猫.png"
+                break;
+            case "1蓝毛猫":
+                imgSrc = "{% static 'img/roles/1蓝毛猫/蓝毛猫.png' %}"
+                val = "img/roles/1蓝毛猫/蓝毛猫.png"
+                break;
+            case "1蓝滑猫":
+                imgSrc = "{% static 'img/roles/1蓝滑猫/蓝滑猫.png' %}"
+                val = "img/roles/1蓝滑猫/蓝滑猫.png"
+                break;
+            case "1蓝透猫":
+                imgSrc = "{% static 'img/roles/1蓝透猫/蓝透猫.png' %}"
+                val = "img/roles/1蓝透猫/蓝透猫.png"
+                break;
+            case "1黄毛猫":
+                imgSrc = "{% static 'img/roles/1黄毛猫/黄毛猫.png' %}"
+                val = "img/roles/1黄毛猫/黄毛猫.png"
+                break;
+            case "1黄滑猫":
+                imgSrc = "{% static 'img/roles/1黄滑猫/黄滑猫.png' %}"
+                val = "img/roles/1黄滑猫/黄滑猫.png"
+                break;
+            case "1黄透猫":
+                imgSrc = "{% static 'img/roles/1黄透猫/黄透猫.png' %}"
+                val = "img/roles/1黄透猫/黄透猫.png"
+                break;
+            case "2红毛狗":
+                imgSrc = "{% static 'img/roles/2红毛狗/红毛狗.png' %}"
+                val = "img/roles/2红毛狗/红毛狗.png"
+                break;
+            case "2红滑狗":
+                imgSrc = "{% static 'img/roles/2红滑狗/红滑狗.png' %}"
+                val = "img/roles/2红滑狗/红滑狗.png"
+                break;
+            case "2红透狗":
+                imgSrc = "{% static 'img/roles/2红透狗/红透狗.png' %}"
+                val = "img/roles/2红透狗/红透狗.png"
+                break;
+            case "2蓝毛狗":
+                imgSrc = "{% static 'img/roles/2蓝毛狗/蓝毛狗.png' %}"
+                val = "img/roles/2蓝毛狗/蓝毛狗.png"
+                break;
+            case "2蓝滑狗":
+                imgSrc = "{% static 'img/roles/2蓝滑狗/蓝滑狗.png' %}"
+                val = "img/roles/2蓝滑狗/蓝滑狗.png"
+                break;
+            case "2蓝透狗":
+                imgSrc = "{% static 'img/roles/2蓝透狗/蓝透狗.png' %}"
+                val = "img/roles/2蓝透狗/蓝透狗.png"
+                break;
+            case "2黄毛狗":
+                imgSrc = "{% static 'img/roles/2黄毛狗/黄毛狗.png' %}"
+                val = "img/roles/2黄毛狗/黄毛狗.png"
+                break;
+            case "2黄滑狗":
+                imgSrc = "{% static 'img/roles/2黄滑狗/黄滑狗.png' %}"
+                val = "img/roles/2黄滑狗/黄滑狗.png"
+                break;
+            case "2黄透狗":
+                imgSrc = "{% static 'img/roles/2黄透狗/黄透狗.png' %}"
+                val = "img/roles/2黄透狗/黄透狗.png"
+                break;
+
+            case "3红毛兔":
+                imgSrc = "{% static 'img/roles/3红毛兔/红毛兔.png' %}"
+                val = "img/roles/3红毛兔/红毛兔.png"
+                break;
+            case "3红滑兔":
+                imgSrc = "{% static 'img/roles/3红滑兔/红滑兔.png' %}"
+                val = "img/roles/3红滑兔/红滑兔.png"
+                break;
+            case "3红透兔":
+                imgSrc = "{% static 'img/roles/3红透兔/红透兔.png' %}"
+                val = "img/roles/3红透兔/红透兔.png"
+                break;
+            case "3蓝毛兔":
+                imgSrc = "{% static 'img/roles/3蓝毛兔/蓝毛兔.png' %}"
+                val = "img/roles/3蓝毛兔/蓝毛兔.png"
+                break;
+            case "3蓝滑兔":
+                imgSrc = "{% static 'img/roles/3蓝滑兔/蓝滑兔.png' %}"
+                val = "img/roles/3蓝滑兔/蓝滑兔.png"
+                break;
+            case "3蓝透兔":
+                imgSrc = "{% static 'img/roles/3蓝透兔/蓝透兔.png' %}"
+                val = "img/roles/3蓝透兔/蓝透兔.png"
+                break;
+            case "3黄毛兔":
+                imgSrc = "{% static 'img/roles/3黄毛兔/黄毛兔.png' %}"
+                val = "img/roles/3黄毛兔/黄毛兔.png"
+                break;
+            case "3黄滑兔":
+                imgSrc = "{% static 'img/roles/3黄滑兔/黄滑兔.png' %}"
+                val = "img/roles/3黄滑兔/黄滑兔.png"
+                break;
+            case "3黄透兔":
+                imgSrc = "{% static 'img/roles/3黄透兔/黄透兔.png' %}"
+                val = "img/roles/3黄透兔/黄透兔.png"
+                break;
+
             default:
                 break;
         }
-        img.src = imgSrc; // 设置图片路径
-        role.value = imgSrc; // 设置隐藏域值
+        img.src = imgSrc;
+        role.value = imgSrc;
     }
 </script>
