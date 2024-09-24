@@ -4,6 +4,8 @@
 
 
 
+
+
 ## 大语言模型
 
 - 目前代码中使用[通义千问](https://help.aliyun.com/zh/dashscope/developer-reference/api-details)大模型（`qwen_plus`和`qwen_max`）来生成内容。大模型的配置信息在`./EmoEden/webapp/chat/chat.py`和`./ASD/webapp/chat/prompt.py`文件下，如想使用其他大模型，请在这两个文件夹下自行配置。
