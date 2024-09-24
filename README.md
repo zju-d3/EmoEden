@@ -1,4 +1,4 @@
-# EmoEden
+# EmoEden: Applying Generative Artificial Intelligence to Emotional Learning for Children with High-Function Autism
 
 - 本项目提供了基于生成式人工智能的高功能自闭症儿童情感学习辅助系统，更多信息可以参考我们的[论文](https://dl.acm.org/doi/abs/10.1145/3613904.3642899)
 
